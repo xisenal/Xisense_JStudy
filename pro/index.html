@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript学习网站</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>JavaScript学习中心</h1>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link active" data-section="home">
+                        <i class="material-icons">home</i>
+                        <span>首页</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#syntax" class="nav-link" data-section="syntax">
+                        <i class="material-icons">code</i>
+                        <span>基础语法</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#notes" class="nav-link" data-section="notes">
+                        <i class="material-icons">note_add</i>
+                        <span>学习笔记</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#editor" class="nav-link" data-section="editor">
+                        <i class="material-icons">code</i>
+                        <span>代码编辑器</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#future" class="nav-link" data-section="future">
+                        <i class="material-icons">extension</i>
+                        <span>更多模块</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- 首页模块 -->
+        <section id="home" class="content-section active">
+            <div class="hero">
+                <h2>欢迎来到JavaScript学习中心</h2>
+                <p>这里是您学习JavaScript的最佳起点，提供全面的语法指导和笔记管理功能。</p>
+                <div class="feature-cards">
+                    <div class="card">
+                        <i class="material-icons">code</i>
+                        <h3>基础语法</h3>
+                        <p>学习JavaScript的核心语法和概念</p>
+                        <button class="btn-primary" onclick="showSection('syntax')">开始学习</button>
+                    </div>
+                    <div class="card">
+                        <i class="material-icons">note_add</i>
+                        <h3>学习笔记</h3>
+                        <p>上传和管理您的Markdown学习笔记</p>
+                        <button class="btn-primary" onclick="showSection('notes')">管理笔记</button>
+                    </div>
+                    <div class="card">
+                        <i class="material-icons">code</i>
+                        <h3>代码编辑器</h3>
+                        <p>在线编写和运行JavaScript代码</p>
+                        <button class="btn-primary" onclick="showSection('editor')">开始编程</button>
+                    </div>
+                    <div class="card">
+                        <i class="material-icons">extension</i>
+                        <h3>扩展模块</h3>
+                        <p>更多学习功能即将推出</p>
+                        <button class="btn-secondary" onclick="showSection('future')">敬请期待</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 基础语法模块 -->
+        <section id="syntax" class="content-section">
+            <div class="section-header">
+                <h2>JavaScript基础语法</h2>
+                <p>掌握JavaScript的核心概念和语法结构</p>
+            </div>
+            <div class="syntax-content">
+                <div class="syntax-categories">
+                    <div class="category-card">
+                        <h3>变量和数据类型</h3>
+                        <div class="code-example">
+                            <pre><code>// 变量声明
+let name = "JavaScript";
+const version = 2023;
+var isActive = true;
+
+// 数据类型
+let number = 42;
+let string = "Hello World";
+let boolean = true;
+let array = [1, 2, 3];
+let object = {key: "value"};</code></pre>
+                        </div>
+                        <div class="external-links">
+                            <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Grammar_and_types" target="_blank" class="link-btn">
+                                <i class="material-icons">open_in_new</i>
+                                MDN文档
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="category-card">
+                        <h3>函数</h3>
+                        <div class="code-example">
+                            <pre><code>// 函数声明
+function greet(name) {
+    return `Hello, ${name}!`;
+}
+
+// 箭头函数
+const add = (a, b) => a + b;
+
+// 函数表达式
+const multiply = function(x, y) {
+    return x * y;
+};</code></pre>
+                        </div>
+                        <div class="external-links">
+                            <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Functions" target="_blank" class="link-btn">
+                                <i class="material-icons">open_in_new</i>
+                                MDN文档
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="category-card">
+                        <h3>控制流程</h3>
+                        <div class="code-example">
+                            <pre><code>// 条件语句
+if (condition) {
+    // 执行代码
+} else if (anotherCondition) {
+    // 执行其他代码
+} else {
+    // 默认代码
+}
+
+// 循环
+for (let i = 0; i < 10; i++) {
+    console.log(i);
+}
+
+// while循环
+while (condition) {
+    // 循环体
+}</code></pre>
+                        </div>
+                        <div class="external-links">
+                            <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Control_flow_and_error_handling" target="_blank" class="link-btn">
+                                <i class="material-icons">open_in_new</i>
+                                MDN文档
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="category-card">
+                        <h3>对象和数组</h3>
+                        <div class="code-example">
+                            <pre><code>// 对象
+const person = {
+    name: "张三",
+    age: 25,
+    greet() {
+        return `我是${this.name}`;
+    }
+};
+
+// 数组方法
+const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map(n => n * 2);
+const filtered = numbers.filter(n => n > 2);</code></pre>
+                        </div>
+                        <div class="external-links">
+                            <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Working_with_Objects" target="_blank" class="link-btn">
+                                <i class="material-icons">open_in_new</i>
+                                MDN文档
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 学习笔记模块 -->
+        <section id="notes" class="content-section">
+            <div class="section-header">
+                <h2>学习笔记管理</h2>
+                <p>上传Markdown文件，自动转换为Material Design风格的网页</p>
+            </div>
+            <div class="notes-content">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="material-icons">cloud_upload</i>
+                        <h3>上传Markdown文件</h3>
+                        <p>拖拽文件到此处或点击选择文件</p>
+                        <input type="file" id="fileInput" accept=".md,.markdown" multiple style="display: none;">
+                        <button class="btn-primary" onclick="document.getElementById('fileInput').click()">
+                            选择文件
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="search-section">
+                    <div class="search-bar">
+                        <i class="material-icons">search</i>
+                        <input type="text" id="searchInput" placeholder="搜索笔记...">
+                        <button class="btn-secondary" onclick="searchNotes()">搜索</button>
+                        <button class="btn-primary" onclick="openNotesIndex()" style="margin-left: 1rem;">
+                            <i class="material-icons">folder_open</i>
+                            浏览所有笔记
+                        </button>
+                        <button class="btn-danger" onclick="deleteAllNotes()" style="margin-left: 1rem;">
+                            <i class="material-icons">delete_sweep</i>
+                            删除所有笔记
+                        </button>
+                    </div>
+                </div>
+
+                <div class="notes-list" id="notesList">
+                    <div class="empty-state">
+                        <i class="material-icons">description</i>
+                        <h3>还没有笔记</h3>
+                        <p>上传您的第一个Markdown文件开始学习之旅</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JavaScript代码编辑器模块 -->
+        <section id="editor" class="content-section">
+            <div class="section-header">
+                <h2>JavaScript在线编辑器</h2>
+                <p>在线编写、运行JavaScript代码，支持智能提示</p>
+            </div>
+            <div class="editor-container">
+                <div class="editor-toolbar">
+                    <button id="runCode" class="btn btn-primary">
+                        <i class="material-icons">play_arrow</i>
+                        运行代码
+                    </button>
+                    <button id="clearCode" class="btn btn-secondary">
+                        <i class="material-icons">clear</i>
+                        清空代码
+                    </button>
+                    <button id="saveCode" class="btn btn-secondary">
+                        <i class="material-icons">save</i>
+                        保存代码
+                    </button>
+                    <button id="loadCode" class="btn btn-secondary">
+                        <i class="material-icons">folder_open</i>
+                        加载代码
+                    </button>
+                </div>
+                <div class="editor-layout">
+                    <div class="code-editor-panel">
+                        <div class="panel-header">
+                            <h3>代码编辑器</h3>
+                        </div>
+                        <div id="codeEditor" class="code-editor"></div>
+                    </div>
+                    <div class="output-panel">
+                        <div class="panel-header">
+                            <h3>输出结果</h3>
+                            <button id="clearOutput" class="btn-clear">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </div>
+                        <div id="codeOutput" class="code-output"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 更多模块 -->
+        <section id="future" class="content-section">
+            <div class="section-header">
+                <h2>更多功能即将推出</h2>
+                <p>我们正在开发更多有用的学习工具</p>
+            </div>
+            <div class="future-content">
+                <div class="coming-soon">
+                    <div class="feature-preview">
+                        <i class="material-icons">quiz</i>
+                        <h3>在线练习</h3>
+                        <p>交互式JavaScript练习题</p>
+                    </div>
+                    <div class="feature-preview">
+                        <i class="material-icons">video_library</i>
+                        <h3>视频教程</h3>
+                        <p>精选JavaScript学习视频</p>
+                    </div>
+                    <div class="feature-preview">
+                        <i class="material-icons">group</i>
+                        <h3>社区讨论</h3>
+                        <p>与其他学习者交流经验</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/markdown-parser.js"></script>
+    <script src="scripts/notes-manager.js"></script>
+</body>
+</html>

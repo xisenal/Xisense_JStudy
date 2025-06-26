@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function - JavaScript学习网站</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .note-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .note-header {
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .note-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+        .note-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .note-content {
+            line-height: 1.8;
+            color: #444;
+        }
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: #5a6fd8;
+            transform: scale(1.1);
+        }
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .print-btn:hover {
+            background: #45a049;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="history.back()" title="返回">
+        <i class="material-icons">arrow_back</i>
+    </button>
+    
+    <button class="print-btn" onclick="window.print()" title="打印">
+        <i class="material-icons">print</i>
+    </button>
+    
+    <div class="note-container">
+        <div class="note-header">
+            <h1 class="note-title">Function</h1>
+            <div class="note-meta">
+                <span><i class="material-icons" style="font-size: 16px; vertical-align: middle;">description</i> Function.md</span>
+                <span style="margin-left: 1rem;"><i class="material-icons" style="font-size: 16px; vertical-align: middle;">schedule</i> 2025/6/26 23:36:58</span>
+            </div>
+        </div>
+        
+        <div class="note-content">
+            </p><h1>Function</h1><br><h2>function vs object</h2><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>funtcion 也是 object，适用于object的操作也适用于function   </li><br></ul><br>    eg：复制给变量，作为value，参数，返回值，为function增加property  <br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>区别于一般object的特征： <em>invokable</em></li><br><ul style="margin: 0.5rem 0; padding-left: 1.5rem;"><br><li>callback function <em>回调函数</em>  </li><br></ul><br></ul><br>        <br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">const txt = "hello";<br>        const useless = callback =&gt; {<br>            const rst = callback();<br>            console.log(rst);<br>        }<br>        useless(() =&gt; txt);<br>        array.sort((v1, v2) =&gt; v1 - v2)  //顺序</code></pre><br>                </div><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>用property实现 <em>带记忆的函数</em></li><br></ul><br>        <br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">const memoize = f =&gt; {<br>            const m = {};<br>            return v =&gt; {<br>                if (m[v] === undefined) m[v] = f(v);<br>                else console.log(<code>${v} is in memory</code>);<br>                return m[v];<br>            }<br>        }<br>        const is_prime_m = memoize(is_prime);</code></pre><br>                </div><br>            <br><h2>rest参数</h2><p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">let max = function(first, ...remaining){<br>    let rst;<br>    if(remaining.length === 0){ //rest参数是一个数组<br>        rst = first;<br>    }<br>    else{<br>        remaining.sort((a,b) =&gt; b-a);<br>        rst = first &gt;= remaining[0] ? first : remaining[0];<br>    }<br>    return rst;<br>}</code></pre><br>                </div><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>隐式参数：arguments   </li><br></ul><br>    <br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">let sum = function(...vs){<br>        let rst = 0;<br>        vs.forEach(v =&gt; rst += v);<br>        return rst;<br>    }<br>    //使用argments的版本<br>    let sum = function(){<br>        let rst = 0;<br>        //把arguments转化成数组的三种方式：<br>        let args = [];<br>        for(let i = 0; i &lt; arguments.length; i++){<br>        args.push(arguments[i]);<br>        }<br>    <br>        let args = Array.from(arguments);<br>    <br>        let args = [].slice.call(arguments);<br>    <br>        args.forEach(v =&gt; rst += v);<br>        //直接用forEach会出错，因为arguments不是原生数组，是一个object  <br>        return rst;<br>    }</code></pre><br>                </div><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>arguments在非严格模式下的特殊行为：</li><br></ul><br>        <br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">let f = function(a) {<br>            console.log(<code>a = ${a}, arguments[0] = ${arguments[0]}</code>);<br>            a = 10;<br>            console.log(<code>a = ${a}, arguments[0] = ${arguments[0]}</code>);<br>            arguments[0] = 100;<br>            console.log(<code>a = ${a}, arguments[0] = ${arguments[0]}</code>);<br>        };<br>        f(1);<br>        /*<br>        严格模式输出：<br>        a = 1, arguments[0] = 1<br>        a = 10, arguments[0] = 1<br>        a = 10, arguments[0] = 100<br>        非严格模式：<br>        a = 1, arguments[0] = 1<br>        a = 10, arguments[0] = 10<br>        a = 100, arguments[0] = 100<br>        */</code></pre><br>                </div><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>arrow function没有自己的arguments参数，但是可以在其中访问到其他函数的arguments  </li><br></ul><br><h2>参数默认值</h2><br>可以的examples:<br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li><code>add(undefined, 2)</code></li><br><li><code>add = function(first, second = first)</code>(first=second不可以)</li><br><li>arguments会记录函数调用时实际传入的参数  </li><br></ul><br><h2>函数的四种调用方法</h2><br><h3>function context</h3><br>每次函数调用会关联一个特定的函数上下文   <br>一个object/undefined值作为隐式参数被传入函数体中，参数名称为this<br><h3>1.invoke as a function</h3><br><strong>严格模式下上下文为global object，一般模式下为undefined</strong>   <br>一般模式下函数上下文可能会带来副作用  <br><h3>2.invoke as a method</h3><br>通过函数上下文可以访问到方法被调用时所在的object</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">"use strict"<br>function whats_my_FC(){<br>    return this;<br>}<br>if(whats_my_FC() == undefined){<br>    console.log("whats_my_FC() == undefined");<br>}<br>let obj1 = { whats_my_FC };<br>let obj2 = { whats_my_FC };<br>if(obj1.whats_my_FC() === obj1){<br>    console.log("obj1.whats_my_FC() === obj1");<br>}<br>if(obj2.whats_my_FC() === obj2){<br>    console.log("obj2.whats_my_FC() === obj2");<br>}<br>/*输出：<br>whats_my_FC() == undefined<br>obj1.whats_my_FC() === obj1<br>obj2.whats_my_FC() === obj2*/</code></pre><br>                </div><br>            <br>在原形链方法上的效果：</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">"use strict"<br>let creature = {<br>    say_hello(){<br>        console.log(<code>${this.name} say ${this.hello}</code>);<br>    }<br>}<br>let cat = {name:"cat", hello:"miaomiao"};<br>let dog = {name:"dog", hello:"wangwang"};<br>Object.setPrototypeOf(cat, creature);<br>Object.setPrototypeOf(dog, creature);<br>creature.say_hello();<br>cat.say_hello();<br>dog.say_hello();<br>/*输出:<br>undefined say undefined<br>cat say miaomiao<br>dog say wangwang*/</code></pre><br>                </div><br>            <br>原型链只影响方法查找，object创立之初this就已经被绑定了   <br><h3>3.invoke as a constructor</h3><p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">"use strict"<br>let Person = function(name){<br>    this.name = name;<br>    this.say_hello = () =&gt; console.log(<code>hello, I'm ${this.name}</code>);<br>}<br>let rab = new Person("rabbit");<br>let dog = new Person("doggy");<br>rab.say_hello();<br>dog.say_hello();<br>/*output:<br>hello, I'm rabbit<br>hello, I'm doggy*/</code></pre><br>                </div><br>            <br>如果不写new，严格模式下不能设置undefined的“name”property，一般模式下会在global object里面增加两个property。但是因为Person函数的返回值是undefined，所以还是无法正常调用say_hello(),仍然会抛出错误   <br><img src="../img/constructor.png" alt="" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0;">  <br><blockquote>  1. 创建一个空的简单 JavaScript 对象,称之为 newInstance   </blockquote><br><blockquote>  2. 如果构造函数的 prototype 属性是一个对象，则将 newInstance 的 [[Prototype]] 指向构造函数的 prototype 属性，否则 newInstance 将保持为一个普通对象，其 [[Prototype]] 为 Object.prototype   </blockquote><br><blockquote>  3. 使用给定参数执行构造函数，并将 newInstance 绑定为 this 的上下文（即在构造函数中的所有 this 引用都指向 newInstance）    </blockquote><br><blockquote>  4. 如果构造函数返回非原始值，则该返回值成为整个 new 表达式的结果。否则，如果构造函数未返回任何值或返回了一个原始值，则返回 newInstance。（通常构造函数不返回值，但可以选择返回值，以覆盖正常的对象创建过程）    </blockquote><br><blockquote>  </blockquote><br><strong>new.target meta-property</strong>  <br>调用函数时若加了new，函数体内new.target指向new操作符后面的function；  <br>若没加，则指向undefined     </p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">const Person = function(name){<br>    if(new.target === undefined){<br>        return new Person(name);<br>    }<br>    this.name = name;<br>    const p1 = Person("Alice"); // 自动转为 new User("Alice")<br>    const p2 = new Person("Bob"); // 正常调用<br>}</code></pre><br>                </div><br>            <br><h3>4. invoke with the <em>apply</em> or <em>call</em> method  </h3><p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">let creature = {<br>    say_hello(a,b){<br>        console.log(<code>${this.name} say: ${this.hello}</code>);<br>        console.log(<code>${a} + ${b} = ${a + b}</code>);<br>    }<br>}<br>let cat = {name: "cat", hello: "miaomaio"};<br>let dog = {name: "dog", hello: "wangwang"};</p><p>creature.say_hello.call(cat, 1, 2);<br>creature.say_hello.apply(dog, [3,4]);</p><p>/*call仿真:<br>function call(thisArg, ...args){<br>    const s = Symbol();<br>    thisArg[s] = this;<br>    const rst = thisArd<a href="...args" target="_blank">s</a>;<br>    delete thisArg[s];<br>    return rst;<br>}<br>*/</code></pre><br>                </div><br>            <br>任何一个函数的原型链上存在两个方法：   <br><strong><code>f.call(thisArg, ...args)</code></strong>    call:rest参数          <br><strong><code>f.apply(thisArg, argArray)</code></strong>  apply(数组形式)   <br>#### bind方法 <br><strong><code>f.bind(thisArg, ...args)</code></strong>   <br>返回新的函数F，内部代码与f相同，上下文被<strong><em>固化</em></strong>为<strong><em>thisArg</em></strong>   <br>形式参数数量: max(0, f.length - args.length)  </p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">let dog = {<br>    name: "dog",<br>    hello: "wangwang",<br>    say_hello(){<br>        console.log(<code>${this.name} say ${this.hello}</code>);<br>    }<br>}</p><p>const say_hello = dog.say_hello.bind(dog);</p><p>let cat = {<br>    name: "cat",<br>    hello: "miaomiao",<br>    say_hello   // 属性名和变量名相同的shorthand<br>}<br>cat.say_hello();<br>//输出: dog say wangwang<br>const add3 = function(a,b,c){<br>    return a + b + c;<br>}<br>const add2 = add3.bind(undefined, 1);<br>console.log(add3(7,3,5));<br>console.log(add2(7,3,5));<br>//输出: 15   11</code></pre><br>                </div><br>            <br><h3>this的边界情况</h3><br>main function被调用时原型链:  <br><strong><em>this → object\<empty> → Object.prototype → null</em></strong> (注意不是global哦,而且跟是不是严格模式也没关系)  <br>数组 → Array.prototype → Object.prototype → null   <br>函数 → Function.prototype → Object.prototype → null  <br>new.target 为 undefined    <br><blockquote>箭头函数不能作为构造函数被调用，没有属于自己的new.target, this, arguments参数  </blockquote><br><blockquote>在箭头函数被创建的时候，这三个参数被<strong><em>固化</em></strong>为当时环境中对应参数的取值    </blockquote><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>  </li><br></ul><br>    <br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">"use strict"<br>    global.hello = "hello from global object";<br>    let dog = {<br>        hello:'wangwang',<br>        say_hello: () =&gt; this.hello<br>    }<br>    console.log(dog.say_hello());<br>    //undefined  (this-&gt;{}, hello属性未定义)<br>    //如果是另一种，函数的夹心呢？<br>    let create_dog = function(){<br>    let dog = {<br>        hello:"wangwang",<br>        say_hello: () =&gt; this.hello<br>    }<br>    return dog;<br>    }<br>    let dog = create_dog();<br>    /*会报错，Cannot read properties of undefined (reading 'hello')<br>    this-&gt;undefined, 找不到hello<br>    如果去掉严格模式，此时this指向global<br>    console.log(dog.say_hello())会得到hello from global object*/</code></pre><br>                </div><br>            <br><h3>佛系排序法</h3><p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">function lazySort(list, callback){<br>    let rst = [];<br>    list.forEach(i =&gt; {<br>        setTimeout(() =&gt; {<br>            rst.push(i);<br>            if(rst.length == list.length) <br>                callback(rst);<br>        }, i);<br>    });<br>}<br>lazySort([4,5,6,7,1,2,4,5], console.log);</code></pre><br>                </div><br>            <br><h2>Closure(闭包)</h2><p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">"use strict" <br>let outer_v = "outer value";<br>let later;</p><p>let outer_f = function(){<br>    let inner_v = "inner value";<br>    let inner_f = function(){<br>        console.log(<code>I can see the ${outer_v}</code>);<br>        console.log(<code>I can see the ${inner_v}</code>);<br>    }<br>    later = inner_f;<br>}</p><p>outer_f();<br>later();</code></pre><br>                </div><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>c++版本的：</li><br></ul><br>    ``<code>c++<br>    int main(){<br>        std::string outer_v = "outer value";<br>        std::function<void(void)> later;<br>    <br>        auto outer_f = [&](){  //'&':能访问到的局部变量传引用<br>            std::string inner_v = "inner value";<br>    <br>            auto inner_f = [=](){  //'=':传值<br>                std::cout << "I can see " << outer_v << std::endl;<br>                std::cout << "I can see " << inner_v << std::endl;<br>            };<br>            later = inner_f;<br>        };<br>        outer_f();<br>        later();<br>    }<br>    <br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-">- 函数对象被创建的时候同时创建一个闭包，包含该函数本身以及此时可以访问到的所有变量  <br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>用途：信息封装  </li><br></ul><br><h2>Closure实现方式:</h2><br><h3>1. Function Execution Context</h3><br>每一次函数调用会创建一个新的context,结束之后通常会被抛弃  <br>程序进行中会形成一个由context形成的栈   <br><img src="../img/Function%20Execution%20Context.png" alt="" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0;"><br><h3>2. Lexical Environment</h3><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>ES运行环境中一个成分：程序员<em>无法显式</em>访问  </li><br><li>{}每一运行都会创建一个新的environment， 记录从标识符到值的映射关系  </li><br><li>遇到一个标识符，需要<em>评估/赋值</em>时，尝试通过词法环境获得/更新该值  </li><br><li>JS程序可以看做一组代码块<em>嵌套</em>形成的一棵树  </li><br><li>函数被<strong>创建</strong>时: 词法环境被存放在[[Environment]]这一internal slot中   </li><br><li>函数被<strong>调用</strong>时: </li><br><ol style="margin: 0.5rem 0; padding-left: 1.5rem;"><br><li>上下文被创建并被压栈</li><br><li>为上下文创建一个对应的词法环境</li><br><li>该环境的外层词法环境设置为该函数[[Environment]]的值</li><br></ol><br></ul><p><p><img src="../img/Closure_realization.png" alt="" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0;">  <br>执行完16行上面的环境就被回收了  <br>#### lexical environment = scope</code></pre><br>                </div><br>            javascript<br>let a = 0;<br>{<br>    {<br>        let a = 1;<br>    }<br>    console.log(a);<br>    let a = 2;<br>}<br>//报错：Cannot access 'a' before initialization<br></code>``<br>创建词法环境时：<br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>扫描这个代码块中使用let/const声明的变量 <em>(跳过内部代码块)</em></li><br><li>把这些变量放在 <strong>TDZ</strong>(temporal dead zone)中  </li><br><li>顺序执行代码块中语句：</li><br><ul style="margin: 0.5rem 0; padding-left: 1.5rem;"><br><li>遇到变量声明语句时把这个变量从TDZ中释放出来，之后就可以在当前代码块中访问到这个变量了</li><br><li>如果在这个代码块中访问一个存在于TDZ中的变量，即使上层词法环境中已经声明了一个同名变量也会抛出错误  </li><br></ul><br></ol><p>
+        </div>
+    </div>
+    
+    <script>
+        // 添加代码高亮
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为代码块添加复制功能
+            const codeBlocks = document.querySelectorAll('pre code');
+            codeBlocks.forEach(block => {
+                const pre = block.parentElement;
+                const copyBtn = document.createElement('button');
+                copyBtn.innerHTML = '<i class="material-icons">content_copy</i>';
+                copyBtn.className = 'copy-btn';
+                copyBtn.style.cssText = 'position: absolute; top: 8px; right: 8px; background: #667eea; color: white; border: none; padding: 4px; border-radius: 4px; cursor: pointer; font-size: 12px;';
+                
+                copyBtn.onclick = function() {
+                    navigator.clipboard.writeText(block.textContent).then(() => {
+                        copyBtn.innerHTML = '<i class="material-icons">check</i>';
+                        setTimeout(() => {
+                            copyBtn.innerHTML = '<i class="material-icons">content_copy</i>';
+                        }, 2000);
+                    });
+                };
+                
+                pre.style.position = 'relative';
+                pre.appendChild(copyBtn);
+            });
+        });
+    </script>
+</body>
+</html>

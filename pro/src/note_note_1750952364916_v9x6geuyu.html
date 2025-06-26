@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web页面编程深入 - JavaScript学习网站</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .note-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .note-header {
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .note-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+        .note-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .note-content {
+            line-height: 1.8;
+            color: #444;
+        }
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: #5a6fd8;
+            transform: scale(1.1);
+        }
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .print-btn:hover {
+            background: #45a049;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="history.back()" title="返回">
+        <i class="material-icons">arrow_back</i>
+    </button>
+    
+    <button class="print-btn" onclick="window.print()" title="打印">
+        <i class="material-icons">print</i>
+    </button>
+    
+    <div class="note-container">
+        <div class="note-header">
+            <h1 class="note-title">Web页面编程深入</h1>
+            <div class="note-meta">
+                <span><i class="material-icons" style="font-size: 16px; vertical-align: middle;">description</i> Web页面编程深入.md</span>
+                <span style="margin-left: 1rem;"><i class="material-icons" style="font-size: 16px; vertical-align: middle;">schedule</i> 2025/6/26 23:39:24</span>
+            </div>
+        </div>
+        
+        <div class="note-content">
+            </p><h1>Web页面编程深入 </h1><br>内容: HTML 样式: CSS 行为: JavaScript  <br><h2>在JS中访问/修改DOM中的信息  </h2><br>一个Web页面的DOM被封装在名为document的object里面，  <br>document和DOM中各种元素（被封装为object）提供一组properties用于对DOM中信息进行读取和修改  <br>在JS中对DOM的修改会实时反应在浏览器页面中  <br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>传统定位元素方法:</li><br><ul style="margin: 0.5rem 0; padding-left: 1.5rem;"><br><li><code>obj.getElementById(id)</code>  </li><br><li><code>obj.getElementsByTagName(tag)</code></li><br><li><code>obj.getElementByClassName(class)</code> (在当前元素的后代元素中查找) </li><br></ul><br></ul><br>  <br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript"></code></pre><br>                </div><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>现代方式: CSS选择器</li><br></ul><br><li><code>obj.querySelector(selector_str)</code></li><br><li><code>obj.querySelectorAll(selector_str)</code></li><br><li>获取和设置HTML元素的attribute </li><br><ul style="margin: 0.5rem 0; padding-left: 1.5rem;"><br><li><code>element.getAttribute(属性名)</code></li><br><li><code>element.setAttribute(属性名，属性值)</code></li><br></ul><p><p>	<br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">var para<br>	para = document.getElementsByTagName("p")[0];<br>	alert("旧的：" +para.getAttribute("title"));<br>	para.setAttribute("title", "你好，名字为title的属性")<br>	alert("新的：" +para.getAttribute("title"))</code></pre><br>                </div><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>HTML中明确规范的attribute可以直接通过属性名获取</li><br></ul><br>	eg. <code>div.setAttribute("id", "special")</code> <=> <code>div.id = "special</code><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>获取和设置HTML元素的文本  </li><br></ul><br>  html元素的文本存在element.textContent中<br>  <br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">var items, i;<br>	items = document.getElementsByTagName("li");<br>	for(i = 0; i &lt; items.length; i++){<br>	items[i].textContent += ":我是黑客";<br>	}</code></pre><br>                </div><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>向DOM中添加新的元素</li><br></ul><br>  <code>let ne = document.createElement(tagName)</code><br>  <code>p.appendChild(ne)</code><br>  <code>p.insertBefore(ne, ref_element)</code></p></p><h2>获取和设置HTML元素的CSS属性的值  </h2><p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">document.addEventListener("DOMContentLoaded", () =&gt; {<br>    const div = document.querySelector("div");<br>    console.log("div.style.font-size:", div.style.fontSize + ";");<br>    console.log("div.style.background-color:", div.style.backgroundColor + ";");<br>});</code></pre><br>                </div><br>            <br>一个object封装当前元素的所有CSS信息:  <br>const styles = windows.getComputedStyle(element)<br>const propValue = styles.getPropertyValue(propNameStr);<br>可以直接设置CSS属性值，是否生效由层叠规则决定  </p></p><h2>Web页面中的事件处理  </h2><br><img src="../img/createWeb.png" alt="" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0;"><br><img src="../img/createPage.png" alt="" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0;"><br><img src="../img/ProcessEvents.png" alt="" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0;"><br>HTML要求事件处理至少包含两个任务队列:  <br>宏任务队列和微任务队列，处理一个宏任务过程中可能会产生多个微任务   <br><img src="../img/ProcessJobs.png" alt="" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0;"><br>处理完一个宏任务之后会立刻按序处理所有的微任务，处理完之后才去处理下一个宏任务  <br>浏览器刷新频率：60桢/秒 流畅性要求一个宏任务及其产生的所有微任务在16ms之内完成  <br>两种定时器：<br><strong><code>window.setTimeout</code></strong><br>延迟delay秒后把timeout事件加入任务队列中  <br>const id = setTimeout(func, delay)<br>clearTimeout(id)</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">// 设置一个定时器<br>const timerId = setTimeout(() =&gt; {<br>  console.log('这条消息不会显示，因为定时器被取消了');<br>}, 5000);<br>// 2秒后取消定时器<br>setTimeout(() =&gt; {<br>  clearTimeout(timerId);<br>  console.log('定时器已取消');<br>}, 2000);</code></pre><br>                </div><br>            </p><p><strong><code>window.setInterval</code></strong><br>延迟delay秒后把interval事件加入任务队列中, 如果已存在同源时间则不加入   <br>const id = setInterval(func, delay)<br>clearInterval(id)</p><p><br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">setTimeout(function repeatMe(){<br>	setTimeout(repeatMe, 10);<br>}, 10);<br>//在语义上与setInterval不等价，因为<br>//setInterval：尝试严格每隔10ms执行一次（不考虑代码执行时间）<br>//setTimeout：下一次调用在前一次代码执行完成后才开始计时10ms</code></pre><br>                </div><br>            </p></p><h3>处理计算密集型操作  </h3><br>将复杂操作拆分为小粒度操作:  </p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">const createTable = function(){<br>    const rowCount = 40000, divideInto = 100;<br>    const chunkSize = rowCount / divideInto;<br>    let iteration = 0;<br>    const tb = document.querySelector("tbody");</p><p>    setTimeout(function generateRows(){<br>        const base = chunkSize * iteration;<br>        for(let i = 0; i &lt; chunkSize; i++) {<br>            const tr = document.createElement("tr");<br>            for(let j = 0; j &lt; 6; j++) {<br>                const td = document.createElement("td");<br>                td.textContent = (base + i) + ", " + j;<br>                tr.appendChild(td);<br>            }<br>            tb.appendChild(tr);<br>        }<br>        if(++iteration &lt; divideInto) {<br>            setTimeout(generateRows, 0);<br>        }<br>    }, 0);<br>};<br>document.addEventListener("DOMContentLoaded", createTable);</code></pre><br>                </div><br>            </p><p>事件在DOM上的传播:  <br>事件对象target属性值: 事件发生的html元素  <br>事件处理函数（不是箭头函数时）this表示当前事件监听函数所附着的HTML元素  </p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">&lt;button id = "btn"&gt;你敢点击我吗？&lt;/button&gt;<br>&lt;script type = "text/javascript"&gt;<br>	const btn = document.querySelector("#btn");<br>	btn.addEventListener("click", function handler(event){<br>		console.log(event.target === btn) //true<br>		console.log(this === btn);   //true<br>	})<br>&lt;/script&gt;</code></pre><br>                </div><br>            <br>点击innerDiv之后innerDiv, outerDiv和document会依次出现点击事件  </p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">&lt;script&gt;<br>    const outerDiv = document.querySelector("#outerDiv");<br>    const innerDiv = document.querySelector("#innerDiv");<br>	var time = 0;<br>    outerDiv.addEventListener("click", function outerHandler(){<br>        console.log("outerDiv监测到了一个点击事件");<br>		console.log("这是第" + time++ + "次点击");<br>    });<br>    innerDiv.addEventListener("click", function innerHandler(){<br>        console.log("innerDiv监测到了一个点击事件");<br>		console.log("这是第" + time++ + "次点击");<br>    });<br>    document.addEventListener("click", function docHandler(){<br>        console.log("document监测到了一个点击事件");<br>		console.log("这是第" + time++ + "次点击");<br>    });<br>&lt;/script&gt;</code></pre><br>                </div><br>            <br>事件在DOM中传播分两个阶段: 事件捕获(capturing)和事件冒泡(bubbling)  <br>addEventListener(type, func, useCapture = false)  (默认为冒泡)<br><img src="../img/bubbling.png" alt="" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0;"></p><p>把事情处理代理给祖先元素:   <br>eg. 在父元素上监听子元素事件:   </p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">const tb = document.querySelector("tbody");<br>tb.addEventListener("click", function(e){<br>	if(e.target.tagName.toLowerCase() === "td"){<br>		event.target.style.backgroundColor = "yellow";<br>	}<br>});</code></pre><br>                </div><br>            </p><p>Web中的事件处理:  <br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>创建出一个自定义事件object:</li><br></ol><br>	<code>const event = new CustomEvent(eventType, {detail:eventDetail})</code><br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>在合适的HTML元素上派发事件:  </li><br></ol><br>	<code>target.dispatchEvent(event)</code><br></p>
+        </div>
+    </div>
+    
+    <script>
+        // 添加代码高亮
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为代码块添加复制功能
+            const codeBlocks = document.querySelectorAll('pre code');
+            codeBlocks.forEach(block => {
+                const pre = block.parentElement;
+                const copyBtn = document.createElement('button');
+                copyBtn.innerHTML = '<i class="material-icons">content_copy</i>';
+                copyBtn.className = 'copy-btn';
+                copyBtn.style.cssText = 'position: absolute; top: 8px; right: 8px; background: #667eea; color: white; border: none; padding: 4px; border-radius: 4px; cursor: pointer; font-size: 12px;';
+                
+                copyBtn.onclick = function() {
+                    navigator.clipboard.writeText(block.textContent).then(() => {
+                        copyBtn.innerHTML = '<i class="material-icons">check</i>';
+                        setTimeout(() => {
+                            copyBtn.innerHTML = '<i class="material-icons">content_copy</i>';
+                        }, 2000);
+                    });
+                };
+                
+                pre.style.position = 'relative';
+                pre.appendChild(copyBtn);
+            });
+        });
+    </script>
+</body>
+</html>

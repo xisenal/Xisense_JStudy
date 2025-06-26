@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>笔记目录 - JavaScript学习网站</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .note-list {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        .note-item {
+            background: white;
+            margin-bottom: 1rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .note-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .note-content-area {
+            flex: 1;
+            cursor: pointer;
+        }
+        .note-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .note-item:hover .note-actions {
+            opacity: 1;
+        }
+        .btn-icon {
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+        .btn-icon:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: scale(1.1);
+        }
+        .btn-delete {
+            color: #dc3545;
+        }
+        .btn-delete:hover {
+            background: rgba(220, 53, 69, 0.1);
+            color: #c82333;
+        }
+        .note-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .note-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .note-preview {
+            color: #555;
+            line-height: 1.6;
+        }
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        .back-btn:hover {
+            background: #5a6fd8;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="window.parent.postMessage('goBack', '*')">
+        <i class="material-icons">arrow_back</i>
+    </button>
+    
+    <div class="note-list">
+        <h1>学习笔记目录</h1>
+        <div id="notesList">
+            <!-- 笔记列表将在这里动态生成 -->
+        </div>
+    </div>
+    
+    <script>
+        // 从父窗口获取笔记数据并显示
+        function loadNotes() {
+            const notes = JSON.parse(localStorage.getItem('jsLearningNotes') || '[]');
+            const notesList = document.getElementById('notesList');
+            
+            if (notes.length === 0) {
+                notesList.innerHTML = '<p>还没有笔记</p>';
+                return;
+            }
+            
+            notesList.innerHTML = notes.map(note => `
+                <div class="note-item">
+                    <div class="note-content-area" onclick="openNote('${note.htmlFile}')">
+                        <div class="note-title">${escapeHtml(note.title)}</div>
+                        <div class="note-meta">
+                            文件名: ${escapeHtml(note.fileName)} | 
+                            上传时间: ${new Date(note.uploadDate).toLocaleDateString('zh-CN')}
+                        </div>
+                        <div class="note-preview">${escapeHtml(note.preview)}</div>
+                    </div>
+                    <div class="note-actions">
+                        <button class="btn-icon btn-delete" onclick="deleteNote('${note.id}', event)" title="删除笔记">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function openNote(htmlFile) {
+            if (htmlFile) {
+                window.open(htmlFile, '_blank');
+            }
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Delete note function
+        function deleteNote(noteId, event) {
+            // 阻止事件冒泡
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            
+            // 确认删除
+            if (!confirm('确定要删除这个笔记吗？此操作不可撤销。')) {
+                return;
+            }
+            
+            try {
+                // 从localStorage中删除
+                const notes = JSON.parse(localStorage.getItem('jsLearningNotes') || '[]');
+                const noteIndex = notes.findIndex(note => note.id === noteId);
+                
+                if (noteIndex === -1) {
+                    alert('笔记不存在');
+                    return;
+                }
+                
+                const noteToDelete = notes[noteIndex];
+                
+                // 从数组中移除
+                notes.splice(noteIndex, 1);
+                localStorage.setItem('jsLearningNotes', JSON.stringify(notes));
+                
+                // 重新加载笔记列表
+                loadNotes();
+                
+                // 提示用户手动删除HTML文件
+                if (noteToDelete.htmlFile) {
+                    alert(`笔记已删除。请手动删除HTML文件：${noteToDelete.htmlFile}`);
+                } else {
+                    alert('笔记已成功删除');
+                }
+                
+            } catch (error) {
+                console.error('删除笔记时出错:', error);
+                alert('删除笔记时出现错误');
+            }
+        }
+        
+        // 页面加载时显示笔记
+        document.addEventListener('DOMContentLoaded', loadNotes);
+        
+        // 监听存储变化
+        window.addEventListener('storage', loadNotes);
+    </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript入门 - JavaScript学习网站</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .note-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .note-header {
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .note-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+        .note-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .note-content {
+            line-height: 1.8;
+            color: #444;
+        }
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: #5a6fd8;
+            transform: scale(1.1);
+        }
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .print-btn:hover {
+            background: #45a049;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="history.back()" title="返回">
+        <i class="material-icons">arrow_back</i>
+    </button>
+    
+    <button class="print-btn" onclick="window.print()" title="打印">
+        <i class="material-icons">print</i>
+    </button>
+    
+    <div class="note-container">
+        <div class="note-header">
+            <h1 class="note-title">JavaScript入门</h1>
+            <div class="note-meta">
+                <span><i class="material-icons" style="font-size: 16px; vertical-align: middle;">description</i> JavaScript入门.md</span>
+                <span style="margin-left: 1rem;"><i class="material-icons" style="font-size: 16px; vertical-align: middle;">schedule</i> 2025/6/26 23:34:08</span>
+            </div>
+        </div>
+        
+        <div class="note-content">
+            </p><h1>JavaScript入门</h1><br><h2>运行方式：</h2><br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>浏览器</li><br><li>命令行/服务器</li><br><li>交互式（repl）  </li><br></ol><br><h2>变量类型：</h2><br>undefined, null, boolean, number,bigint,string,symbol,object    <br>primitinive:immutable(内存区域信息不会变化) <br><h3>undefined</h3><br>只包含undefined一个值   <br><blockquote>let a = undefined  </blockquote><br><blockquote>let b     </blockquote><br><blockquote>都是undefined  </blockquote><br><h3>typeof特殊行为</h3><br><strong><em>typeof null 返回 "object"</em></strong>  <br>typeof function 返回 "function"   <br>typeof 对未声明的变量返回 "undefined"   <br>typeof 对数组返回 "object"  <br><h3>number</h3><br>8字节 编码方式：IEEE Std 754-2008  <br>声明可忽略前后0，输出会忽略无意义0  <br><code>.toExponential()</code>数值->指数形式表示的字符串  <br><code>toFixed()</code>,<code>toPrecision()</code>控制小数点后位数/有效数字个数   </p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">(42).toFixed(3);<br>42..toFixed(3);<br>42 .toFixed(3);<br>let billion = 1_000_000_000;<br>let bytes = 0x89_AB_CD_EF;</code></pre><br>                </div><br>            <br>相等判断： 0.1+0.2-0.3 < Number.EPSILON  <br>NaN 不触发运行时错误 八种类型中<strong><em>唯一</em></strong>与自身不相等的值   <br><blockquote><code>let isNaN = n => n != n</code>  </blockquote><br><blockquote></blockquote><br>Infinity: 超出Number.MAX_VALUE的向最近靠拢  <br>+0,-0:<br><blockquote><code>let is_neg_zero = n=> (n==0) && (1/n === -Infinity)</code>   </blockquote><p><p>Object.is实现方法：</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">const same_value = (v1,v2) =&gt;<br>{<br>    //check +0,-0<br>    if(v1 === 0 &amp;&amp; v2 === 0){<br>        return 1/v1 === 1/v2;<br>    }<br>    //check NaN<br>    if(v1 !== v1){<br>        return v2 !== v2;<br>    }<br>    //check else<br>    return v1 === v2;<br>}</code></pre><br>                </div><br>            <br>整数判断：  </p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">const is_integer = n =&gt; typeof n == "number" &amp;&amp; n % 1 == 0;<br>const is_safe_integer = n =&gt; {<br>    return Number.isInteger(n) &amp;&amp; Maths.abs(n) &lt;= Number.MAX_SAFE_INTEGER;<br>}</code></pre><br>                </div><br>            <br><h3>bigint</h3><br>可以把其他类型（number，string）转化为bigint  <br>bigint和number不能混合参与到基本算术运算中，可以混合参与到关系运算中   <br><h3>string</h3><br>声明后值不再变化(immutable)  <br><blockquote><code>let str = 'hello, "Mr.X"!' //双引号不用转义符</code>   </blockquote><br>模板字符串：回车不用转义符，嵌入表达式 <code>s = 'Hi, ${a} + ${b} = ${a+b}'</code>  <br><h3>symbol</h3><br>不存在字面量（literal）表示方式，两次调用不返回相同值  <br>共享：<code>let mys = Symbol.for("description")</code><br><h3>object</h3><br>property(data/accessor):key(string/symbol) + value  <br>创建方式：    <br>#### 1. 对象字面量：   </p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">let priv = Symbol();<br>let obj = {<br>    name: "xiao ming",<br>    //是["name"]: "xiao ming" 的语法糖，实际这里的key是string类型<br>    age: 18,<br>    addr: "pku",<br>    [priv] : "something secret",<br>    [""]: "空字符串也是合法的key"<br>}<br>//等价形式<br>let obj = {};<br>obj.name = "xiao ming";<br>obj.age = 28;<br>obj.addr = "pku";<br>//另一种语法糖<br>let name = "xiao ming";<br>let age = 18;<br>let person = {<br>    name<br>    age<br>};<br>console.log(obj.name);console.log(obj[priv]);  <br>//访问（访问具有undefined值的property和不存在的property都会得到undefined<br>delet obj.addr; //删除</code></pre><br>                </div><br>            <br>#### 2. 函数    <br>``<code>javascript  <br>function createPerson(name,age){<br>    return {name, age};<br>}  <br>let person = createPerson("xiao ming", 28);</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-"></code>let o = Object(val)<code>:<br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>null/undefined: let o = {}  </li><br><li>object: let o = val</li><br><li>others: 把priminitive类型的值封装在object里，用valueOf()获取   </li><br></ol><br></code>let obj = Object.create(proto)<code>(proto为<em>object/null</em>)：  <br>返回object值，原型（prototype）是proto<br>#### 3. 构造函数  <br></code>let obj = new Object()<code><br><h3>accessor property</code></pre></h3><br>                </div><br>            javascript<br>const Person = function(name){<br>    let my_age = 28;<br>    return{<br>        name,<br>        get age(){return my_age;},<br>        set age(v){<br>            if(v < 0) throw new Error("negative age");<br>            my_age = v;<br>        }<br>    }<br>}</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-">## 另一种分类方式  <br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>falsy: undefined, null, false, 0, NaN, ""  </li><br><li>truthy: others (比如object eg. </code>b = new Boolean(false)<code>是truthy value) </li><br></ul><br>转化为boolean时为true/false  <br><h2>变量-值-类型  </h2><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>变量引用且只引用一个值，一个值可同时被多个变量引用</li><br><li>一个值只能具有一个类型，且不可改变</li><br><li>一个类型至少具有一个值   </li><br><li>const: 变量与初始化值之间的引用关系不变</li><br></ul><br><h3>传值 or 传引用？ 传共享调用！</h3><br>基本类型是传值调用，引用类型传共享调用  <br>求值策略传递给函数的参数是对象的引用的拷贝，即对象变量指针的拷贝</code></pre><br>                </div><br>            javascript<br>function changeStuff(a, b, c) {<br>    a = a * 10;<br>    // 对 a 赋值，修改 a 的指向，新的值是 a * 10<br>    b.item = "changed"; <br>    // 因为 b 与 obj1 指向同一个对象，所以这里会修改原始对象 obj1.item 的内容<br>    c = {item: "changed"}; <br>    // 对 c 重新赋值，修改 c 的指向，其指向的对象内容是 {item: "changed"}<br>}<br>var num = 10;<br>var obj1 = {item: "unchanged"};<br>var obj2 = {item: "unchanged"};<br>changeStuff(num, obj1, obj2);<br>console.log(num);<br>console.log(obj1.item);    <br>console.log(obj2.item);<br>//输出结果：10，changed,unchanged</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-"><img src="../img/object-sharing.png" alt="" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0;">  <br><h2>built-in objects </h2><br>原子类型自动装箱,拆箱  <br>Boolean, Number, String 加new创建object，不加为强制类型转换;是object, function, constructor(function和constructor一定是object，反之不一定)    <br><h3>Array</h3><br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>array literal  </code>const array = ["dog", false, NaN]<code>  </li><br><li>constructor 单个参数为空槽个数</li><br><li></code>push pop unshift shift<code> 首/尾 添加/删除</li><br><li></code>splice(start, deleteCount, ...items)<code></li><br><li></code>slice(start, end)  // <a href="../img/globalObj_properties.png" target="_blank">start, end) <code>  </li><br><li>可以添加自定义的property  </li><br></ol><br><h3>Function  </h3><br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>declaration</code></pre></li><br></ol><br>                </div><br>            javascript<br>function myFunc(a, b){<br>    const rst = a + b;<br>    return rst;<br>}</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-">ES6之前作用域：文件（任何位置） + 函数（同名屏蔽）  <br>ES6加入代码块作用域  <br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>expression</code></pre></li><br></ol><br>                </div><br>            javascript<br>let myFunc = function(a,b){<br>    const rst = a + b;<br>    return rst;<br>}</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-">作为property的value的语法糖：</code></pre><br>                </div><br>            javascript<br>let person = {<br>    name: "xiaoming",<br>    sayName(){<br>        console.log(person.name);<br>    }<br>};</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-">3. arrow</code></pre><br>                </div><br>            javascript<br>let myFunc = (a, b) => a + b;<br>let myFunc = (a, b) => {<br>    return a + b;<br>}</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-">### globalThis<br>globalThis 为全局变量，指向一个global object   <br>ES11之前没有规定global object的显示访问名称，不同js运行环境有自己命名：global(node.js), window(浏览器)  <br>![</a></code></pre><br>                </div><br>            javascript<br>let f = () => {<br>    let NaN = 1;<br>    console.log(NaN);<br>    console.log(globalThis.NaN);<br>}<br>f();<br>//输出： 1， NaN</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-">无论位置，只要对一个未声明的变量赋值，执行该语句后该变量自动变为一个全局变量（global object的一个property）   <br>&gt; 用</code>use strict<code>在js文件的第一行就会让该规则只在函数体内起作用   <br><h2>Object核心成分</h2><br><h3>1. 属性 (Property)</h3><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>程序员完全可控：可自由增删改查</li><br><li>分类：</li><br><ul style="margin: 0.5rem 0; padding-left: 1.5rem;"><br><li>数据属性（直接存储值）：</code></pre></li><br></ul><br></ul><br>                </div><br>            javascript<br>    const obj = { a: 1 }; // </code>a<code> 是数据属性<br>    <br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-">- 访问器属性（通过 getter/setter 控制）：</code></pre><br>                </div><br>            javascript<br>    const obj = { <br>      get b() { return this._b; },<br>      set b(value) { this._b = value; }<br>    };<br>    <br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-">- 内置方法属性：</code></pre><br>                </div><br>            javascript<br>    const arr = [];<br>    arr.push(1); // </code>push<code> 是内置方法属性<br>    </code>`<code></p></p><h3>2. 内部槽 (Internal Slot)</h3><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>引擎内部使用的隐藏状态</li><br><li>程序员无法直接操作，但可能间接影响</li><br><li>示例：</li><br><ul style="margin: 0.5rem 0; padding-left: 1.5rem;"><br><li></code>[[Prototype]]<code>：对象的原型，通过 </code>Object.getPrototypeOf()<code> 访问</li><br><li></code>[[ArrayLength]]<code>：数组的长度，通过 </code>length<code> 属性间接关联</li><br><li></code>[[PromiseState]]<code>：Promise 的状态，如 </code>"pending"<code>/</code>"fulfilled"<code></li><br></ul><br></ul><p></p><h3>3. 内部方法 (Internal Method)</h3><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>引擎实现的默认行为，控制对象的核心操作逻辑</li><br><li>示例：</li><br><ul style="margin: 0.5rem 0; padding-left: 1.5rem;"><br><li></code>[[Get]]<code>：读取属性时触发（如 </code>obj.a<code>）</li><br><li></code>[[Set]]<code>：设置属性时触发（如 </code>obj.a = 1<code>）</li><br><li></code>[[Delete]]<code>：删除属性时触发（如 </code>delete obj.a`）  </li><br></ul><br></ul><br><h3>不同成分间交互关系  </h3><br><img src="../img/interaction.png" alt="" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0;"><br><h2>prototype  </h2><br>每一个object<em>关联且只关联一个</em>Prototype  <br>Prototype是object的一种internal state，存放在一个名为[[Prototype]]的internal slot中   <br>继承：key上找不到value时会去[[Prototype]]上找  <br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>Data property: 读取在原型链上反向传播，直到遇见同一个key的property，设置不传播  </li><br><li>Accessor property: 读取和设置都会反向传播   </li><br></ul><br></p>
+        </div>
+    </div>
+    
+    <script>
+        // 添加代码高亮
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为代码块添加复制功能
+            const codeBlocks = document.querySelectorAll('pre code');
+            codeBlocks.forEach(block => {
+                const pre = block.parentElement;
+                const copyBtn = document.createElement('button');
+                copyBtn.innerHTML = '<i class="material-icons">content_copy</i>';
+                copyBtn.className = 'copy-btn';
+                copyBtn.style.cssText = 'position: absolute; top: 8px; right: 8px; background: #667eea; color: white; border: none; padding: 4px; border-radius: 4px; cursor: pointer; font-size: 12px;';
+                
+                copyBtn.onclick = function() {
+                    navigator.clipboard.writeText(block.textContent).then(() => {
+                        copyBtn.innerHTML = '<i class="material-icons">check</i>';
+                        setTimeout(() => {
+                            copyBtn.innerHTML = '<i class="material-icons">content_copy</i>';
+                        }, 2000);
+                    });
+                };
+                
+                pre.style.position = 'relative';
+                pre.appendChild(copyBtn);
+            });
+        });
+    </script>
+</body>
+</html>

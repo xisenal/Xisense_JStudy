@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS异步编程 - JavaScript学习网站</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .note-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .note-header {
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .note-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+        .note-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .note-content {
+            line-height: 1.8;
+            color: #444;
+        }
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: #5a6fd8;
+            transform: scale(1.1);
+        }
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .print-btn:hover {
+            background: #45a049;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="history.back()" title="返回">
+        <i class="material-icons">arrow_back</i>
+    </button>
+    
+    <button class="print-btn" onclick="window.print()" title="打印">
+        <i class="material-icons">print</i>
+    </button>
+    
+    <div class="note-container">
+        <div class="note-header">
+            <h1 class="note-title">JS异步编程</h1>
+            <div class="note-meta">
+                <span><i class="material-icons" style="font-size: 16px; vertical-align: middle;">description</i> JS异步编程.md</span>
+                <span style="margin-left: 1rem;"><i class="material-icons" style="font-size: 16px; vertical-align: middle;">schedule</i> 2025/6/26 23:40:41</span>
+            </div>
+        </div>
+        
+        <div class="note-content">
+            </p><h1>JS异步编程  </h1><br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>计算密集型: 拆成细粒度子任务  </li><br></ol><br>   setTimeout(nextTask, 0)<br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>IO密集型: </li><br></ol><br>   启动一个IO任务时传入一个回调函数，继续执行后面代码；<br>   IO任务完成后把IO完成时间加入任务队列，回调函数是这个事件的处理函数  </p><p>异步文件读取函数:</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">const fs = require("fs");<br>fs.readFile("/etc/passwd", "utf8", (err, data) =&gt; {<br>  if(err) throw err;<br>  console.log(data);<br>})<br>console.log(" ");<br>console.log("文件读写中");<br>console.log(" ")<br>// 后面的代码会先执行</code></pre><br>                </div><br>            <br>同步文件读取函数: <code>fs.readFileSync(filepath, options)</code>  </p><p>浏览器环境中从服务器端异步获取数据:</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">const req = new XMLHttpRequest();<br>req.open("GET", "data/passwd"); //第三个参数默认为true(异步)<br>req.onload = function(){<br>   try{<br>      if(this.status === 200){<br>         console.log("获取文件成功"); //请求成功，服务器返回 200<br>         console.log(this.response);<br>      }else{<br>         console.log("获取文件失败");  //请求到达服务器，但返回错误状态码（如 404、500）<br>      }<br>   }catch(e){<br>      console.log("获取文件失败"); //请求完成，但处理响应时抛出异常（如数据解析错误）<br>      console.log(e);<br>   }<br>}<br>req.onerror = function(){<br>   console.log("获取文件失败"); //请求未到达服务器（网络问题、跨域错误、URL 无效）<br>}<br>req.send();</code></pre><br>                </div><br>            </p><p>异步IO的仿真函数:</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">const getData = function(url, callback){<br>  const timePeriod = Math.random() * 5000;<br>  const isSuccess = Math.random() &lt; 0.5 ? true : false;</p><p>  setTimeout(() =&gt; {<br>    if(isSuccess){<br>      callback(false, "this is the data that you want: " + Math.random());<br>    }else{<br>      callback("sorry~");<br>    }<br>  }, timePeriod);<br>}<br>getData("https://www.pku.edu.cn", (err, data) =&gt; {<br>  err &amp;&amp; console.log(err);<br>  !err &amp;&amp; console.log(data);<br>});<br>console.log("rabbit is watching...")</code></pre><br>                </div><br>            </p></p><h3>回调函数的缺点</h3><br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>错误处理:</li><br></ol><br>   <br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">try {<br>      getData(url, (err1, data1) =&gt; { // 异步回调<br>         if (err1) {<br>            console.log("出错了，我抛出了错误，你能接到吗？");<br>            throw err1; // ❌ 这里抛出错误无法被外部的 try/catch 捕获！<br>         }<br>         console.log(data1);<br>      });<br>   } catch(e) {<br>      console.log("错误信息: " + e); // 永远不会执行<br>   }<br>   //正确方式：在回调函数内部处理错误，而非尝试用外部 try/catch</code></pre><br>                </div><br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>异步顺序任务处理复杂:</li><br></ol><br>   <br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">getData(url1, (err1, data1) =&gt; {<br>    if(err1) {<br>        console.log("url1:", err1); return;<br>    }<br>    getData(url2, (err2, data2) =&gt; {<br>        if(err2) {<br>            console.log("url2:", err2); return;<br>        }<br>        getData(url3, (err3, data3) =&gt; {<br>            if(err3) {<br>                console.log("url3:", err3); return;<br>            }<br>            console.log("终于成功的获取了所有数据");<br>        });<br>    });<br>   });</code></pre><br>                </div><br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>并⾏/并发多任务处理:</li><br></ol><br>   <br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">let task1 = null, task2 = null, task3 = null; // 声明变量用于存储结果<br>   // 任务1<br>   getData(url1, (err1, data1) =&gt; {<br>      if(err1) { console.log("url1:", err1); return; }<br>      task1 = data1;       // 存储结果<br>      taskCompleted();     // 检查是否全部完成<br>   });<br>   // 任务2<br>   getData(url2, (err2, data2) =&gt; {<br>      if(err2) { console.log("url2:", err2); return; }<br>      task2 = data2;<br>      taskCompleted();<br>   });<br>   // 任务3<br>   getData(url3, (err3, data3) =&gt; {<br>      if(err3) { console.log("url3:", err3); return; }<br>      task3 = data3;<br>      taskCompleted();<br>   });   <br>   // 检查所有任务是否完成<br>   function taskCompleted() {<br>      if(task1 !== null &amp;&amp; task2 !== null &amp;&amp; task3 !== null) {<br>         console.log("终于完成所有任务了！");<br>      }<br>   }</code></pre><br>                </div><br>             </p></p><h3>Generator 函数</h3><br>调用不执行函数,返回一个iterable object(<strong>也是一个iterator</strong>), 按顺序包含所有yield后表达式的值  <br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>eg.遍历DOM树:</li><br></ul><p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">function * DOMTraversal(element){<br>  yield element;<br>  element = element.firstElementChild;<br>  while(element){<br>    yield * DOMTraversal(element);<br>    element = element.nextElementSibling;<br>  }<br>}<br>for(let element of DOMTraversal(html))<br>  console.log(element.nodeName);</code></pre><br>                </div><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>与Generator双向通讯: </li><br></ul><br><li>next函数:</li><br>      <br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">function * PersonGenerator(){<br>         const p1 = yield "rabbit";<br>         const p2 = yield "doggy";<br>         console.log(p1, p2);<br>      }<br>      const personIterator = PersonGenerator();<br>      let rst = personIterator.next();<br>      while(!rst.done){<br>         console.log(rst.value);<br>         if(rst.value === "rabbit") rst = personIterator.next("heyhey");<br>         else if(rst.value === "doggy") rst = personIterator.next("hello");<br>      }</code></pre><br>                </div><br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>next函数参数:</li><br></ol><br>      <br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">function * generator(){<br>         try{<br>            yield "rabbit";<br>            yield "doggy";<br>         }catch(e){<br>            console.log(e);<br>         }<br>      }<br>      const iterator = generator();<br>      let rst = iterator.next();<br>      while(!rst.done){<br>         console.log(rst.value);<br>         iterator.throw("heyhey, an error!");<br>         rst = iterator.next();<br>      }</code></pre><br>                </div><br>            <br>Generator: 状态机  <br>调用完毕后上下文仍然存在，直到遍历完毕  </p></p><h3>Promise </h3><p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">const promise = new Promise((resolve, reject) =&gt; {<br>   getData("https://www.rabbitIsSoPretty.cn", (err, data) =&gt; {<br>      if(err){<br>         reject(err);<br>      }else{<br>         resolve(data);<br>      }<br>   });<br>});<br>promise.then(data =&gt; {<br>   console.log("success", data);<br>}, err =&gt; {<br>   console.log("failure", err);<br>});</code></pre><br>                </div><br>            <br>.catch(callback) => .then(undefined, callback)  </p><p>封装:</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">function getDataPromise(url){<br>   return new Promise((resolve, reject) =&gt; {<br>   getData("https://www.rabbitIsSoPretty.cn", (err, data) =&gt; {<br>      if(err){<br>         reject(err);<br>      }else{<br>         resolve(data);<br>      }<br>   });<br>});<br>}</code></pre><br>                </div><br>            <br>顺序读取:</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">getDataPromise(url1)<br>  .then(data1 =&gt; getDataPromise(url2))<br>  .then(data2 =&gt; getDataPromise(url3))<br>  .then(data3 =&gt; console.log("顺序异步读取三个数据，成功！"))<br>  .catch(error =&gt; console.log("发生错误："+error));<br>//--------------------------------------------<br>Promise.all([<br>    getDataPromise(url1), <br>    getDataPromise(url2), <br>    getDataPromise(url3)<br>])<br>.then(result =&gt; {<br>    console.log("成功读取三个数据");<br>    console.log(result[0]); // url1的结果<br>    console.log(result[1]); // url2的结果<br>    console.log(result[2]); // url3的结果<br>})<br>.catch(error =&gt; console.log(error));<br>console.log("我就在这里静静地看你表演...");</code></pre><br>                </div><br>            </p><p>失败会持续在promise链中传播，直到遇到一个catch  <br>成功会持续在promise链中传播，直到遇到⼀个then⽅法（成功被处理）</p></p><h3>async await </h3><p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">async function helloWorld(){<br>  const data = [];<br>  try{<br>    data[0] = await getDataPromise(url1);<br>    data[1] = await getDataPromise(url2);<br>    data[2] = await getDataPromise(url3);<br>  }catch(error){<br>    console.log("error:" + error);<br>    return;<br>  }<br>  for(let item of data) console.log(item);<br>}<br>helloWorld();<br>console.log("rabbit is watching...")</code></pre><br>                </div><br>            <br>async function: 总是返回⼀个promise object  <br>async函数中出现的运⾏时错误如果没有被try-catch语句捕获，也会被封装为promise后返回  <br>当在async函数的执⾏过程中遇到了⼀个await表达式，该函数的执⾏会被暂停，直到await表达式中的promise进⼊终⽌状态  <br>A. 成功状态：await表达式返回相应的值（求值成功）；然后继<br>续执⾏async函数后⾯的代码  <br>B. 失败状态：抛出异常；如果异常没有被捕获，async函数将<br>异常封装成⼀个promise后返回  <br>对await表达式的求值不会造成线程阻塞（称之为：异步等待）  </p><p>#### Async iterable object<br>具有一个Symbol.asyncIterator的property，是一个well-known symbol  <br>这个property的value是⼀个function,调⽤这个function会返回⼀个asyncIterator（异步遍历器）  <br>⼀个asyncIterator是⼀个object, 这个object具有⼀个名称为next的⽅法, 对next⽅法的⼀次调⽤会返回⼀个Promise object  </p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">vs.reverse = function() {<br>  return { // 返回 Async Iterable 对象<br>    [Symbol.asyncIterator]: () =&gt; { // 实现 asyncIterator 方法<br>      let i = this.length - 1; // 从数组末尾开始<br>      return { // 返回 Async Iterator<br>        next: () =&gt; {<br>          const done = (i &lt; 0); // 是否遍历完成<br>          const value = !done ? this[i--] : undefined; // 当前值<br>          return new Promise(resolve =&gt; <br>            setTimeout(() =&gt; resolve({ done, value }), 1000) // 延迟 1 秒<br>        )}<br>      };<br>    }<br>  };<br>};<br>const asyncItr = vs.reverse()[Symbol.asyncIterator](); // 获取异步迭代器</p><p>const asyncLoop = (asyncIter, f) =&gt; { // 异步遍历驱动函数<br>  asyncIter.next().then(({ done, value }) =&gt; {<br>    if (done) return;<br>    f(value); // 处理当前值（这里是 console.log）<br>    asyncLoop(asyncIter, f); // 递归调用继续遍历<br>  });<br>};<br>const intTimer = () =&gt; setInterval(() =&gt; console.log("tick"), 500); // 辅助计时器<br>const t = intTimer(); // 启动计时器（每 500ms 输出 "tick"）<br>asyncLoop(asyncItr, console.log); // 开始异步遍历<br>setTimeout(() =&gt; clearInterval(t), 7000); // 7 秒后停止计时器<br>//----------------------<br>//for-await-of语句(也可用于一般itearable object)<br>const t = setInterval(() =&gt; console.log("tick"), 500);<br>for await (const value of vs.reverse()) {<br>  console.log("value:", value);<br>}<br>clearInterval(t);</code></pre><br>                </div><br>            <br>#### Async Generator </p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">const getValue = () =&gt; {<br>    return new Promise( resolve =&gt; {<br>    setTimeout( () =&gt; resolve(Math.random()), 1000);<br>    });<br>}</p><p>const asyncGen = async function * () { // 声明一个 async generator<br> for (let i = 0; i &lt; 5; i++){<br>    const value = await getValue(); // 可以使用await关键词<br>    yield value + 1;<br>    }<br>}<br>const t = setInterval(() =&gt; console.log("tick"), 500);<br>for await (const v of asyncGen()) console.log(v);<br>clearInterval(t);</code></pre><br>                </div><br>            </p>
+        </div>
+    </div>
+    
+    <script>
+        // 添加代码高亮
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为代码块添加复制功能
+            const codeBlocks = document.querySelectorAll('pre code');
+            codeBlocks.forEach(block => {
+                const pre = block.parentElement;
+                const copyBtn = document.createElement('button');
+                copyBtn.innerHTML = '<i class="material-icons">content_copy</i>';
+                copyBtn.className = 'copy-btn';
+                copyBtn.style.cssText = 'position: absolute; top: 8px; right: 8px; background: #667eea; color: white; border: none; padding: 4px; border-radius: 4px; cursor: pointer; font-size: 12px;';
+                
+                copyBtn.onclick = function() {
+                    navigator.clipboard.writeText(block.textContent).then(() => {
+                        copyBtn.innerHTML = '<i class="material-icons">check</i>';
+                        setTimeout(() => {
+                            copyBtn.innerHTML = '<i class="material-icons">content_copy</i>';
+                        }, 2000);
+                    });
+                };
+                
+                pre.style.position = 'relative';
+                pre.appendChild(copyBtn);
+            });
+        });
+    </script>
+</body>
+</html>

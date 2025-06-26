@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Type Conversion - JavaScript学习网站</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .note-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .note-header {
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .note-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+        .note-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .note-content {
+            line-height: 1.8;
+            color: #444;
+        }
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: #5a6fd8;
+            transform: scale(1.1);
+        }
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .print-btn:hover {
+            background: #45a049;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="history.back()" title="返回">
+        <i class="material-icons">arrow_back</i>
+    </button>
+    
+    <button class="print-btn" onclick="window.print()" title="打印">
+        <i class="material-icons">print</i>
+    </button>
+    
+    <div class="note-container">
+        <div class="note-header">
+            <h1 class="note-title">Type Conversion</h1>
+            <div class="note-meta">
+                <span><i class="material-icons" style="font-size: 16px; vertical-align: middle;">description</i> Type Conversion.md</span>
+                <span style="margin-left: 1rem;"><i class="material-icons" style="font-size: 16px; vertical-align: middle;">schedule</i> 2025/6/26 23:38:17</span>
+            </div>
+        </div>
+        
+        <div class="note-content">
+            </p><h1>Type Conversion  </h1><br><h2>抽象操作</h2><br>程序员不能调用这些对类型转化行为进行规范化描述的行为   <br><strong><code>ToPriminitive(input, preferredType = default)</code></strong><br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>input为原子类型，返回input  </li><br><li>若input上存在一个key为Symbol.toPriminitive的方法，调用input\<a href="preferredType" target="_blank">Symbol.toPrimitive</a>   </li><br><li>否则调用OrdinaryToPrimitive(input, preferredType)  </li><br><li>peferredType值是string 则令 methods = \["toString", "valueOf"]  </li><br><li>否则 methods = \["valueOf", "toString"]  </li><br></ol><p><p><strong><code>ToBoolean(input)</code></strong>  <br>falsy values: undefined, null, false, 0, NaN, ""  </p><p><strong><code>ToNumber(input)</code></strong><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>undefined: NaN  </li><br><li>null, false: +0  </li><br><li>true: 1</li><br><li>symbol/<strong><em>bigint</em></strong>: TypeError  </li><br><li>object: <code>primValue = ToPrimitive(input, "number"); return ToNumber(primValue)</code></li><br><li>string: Number(input)  </li><br></ul><p><p><strong><code>ToBigInt(input)</code></strong><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>undefined/null: TypeError</li><br><li>symbol/<strong><em>number</em></strong>: TypeError  </li><br><li>false: 0n    </li><br><li>True: 1n  </li><br><li>string: BigInt(input)  </li><br></ul><p><p><strong><code>ToNumeric(input)</code></strong><br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li><code>primValue = ToPrimitive(input, "number")</code></li><br><li>如果primValue是一个bigint值，则返回primValue</li><br><li>返回ToNumber(primValue)</li><br></ol><p><p><strong><code>ToString(input)</code></strong><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>undefined/null/false/true: "名称"  </li><br><li>symbol: TypeError  </li><br><li>object: <code>primValue = ToPrimitive(input, "string"); retrurn ToString(primValue)</code> </li><br><li>number: String(input)</li><br></ul><p><p><strong><code>ToObject(input)</code></strong><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>undefined/null: TypeError  </li><br><li>boolean/string/number: new Boolean/String/Number(input) </li><br><li>bigint: 对象o, 满足<code>o.[[Prototype]] ==== BigInt.prototype, o.[[BigIntData]] === input</code>  </li><br><li>symbol: 同上</li><br></ul><p></p><h2>类型转换  </h2><br><h3>显式转换  </h3><br><strong><code>String(value)</code></strong><br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>没有传入参数: 返回""</li><br><li>symbol类型: 返回value的描述字符串  </li><br><li>返回 ToString(value) </li><br></ol><p><p><em>显式包含隐式</em>: <code>a.toString()</code> 为 <code>1.tmp = ToObject(a) 2.tmp.toString()</code>  </p><p><strong><code>Number(value)</code></strong><br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>没有传入参数: 返回+0</li><br><li>返回ToNumber(value)  </li><br></ol><p><p><strong><em>一元</em></strong>操作符+会把操作数转化为number类型  </p><p><strong><code>Boolean(value)</code></strong><br>返回ToBoolean(value)   <br>!操作符调用 ToBoolean()  </p></p><h3>隐式转换  </h3><br><strong><code>+</code></strong>  left + right</p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">let lv = ToPrimitive(left), rv = ToPrimitive(right)<br>if(typeof lv === "string" || typeof rv === "string")<br>	lv = ToString(lv), rv = ToString(rv)<br>	return lv.concat(rv)<br>lv = ToNumeric(lv), rv = ToNumeric(rv)<br>if(typeof lv !== typeof rv) throw TypeError <br>return lv + rv</code></pre><br>                </div><br>            <br><strong><code>-</code></strong> left - right  </p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">let lv = ToNumeric(left), rv = ToNumeric(right)<br>if(typeof lv !== typeof rv) throw TypeError<br>return lv - rv</code></pre><br>                </div><br>            <br>boolean 间 +,- 转化为number  </p><p><strong><code>others -> boolean</code></strong>   <br>条件判断, || && 操作符中的<strong><em>左</em></strong>操作数  <br><code>left && right</code> / <code>left || right</code>  </p><p>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">let bool = ToBoolean(left)<br>if(bool === false/true) return left<br>return right</code></pre><br>                </div><br>            <br><code>left ?? right</code>  <br>left: null/undefined -> return right    <br>else -> return right   </p><p>if(a){ foo(a)} <=> a && foo(a)  <br>设置缺省值: x = x || "hello"  </p></p><h2>== VS ===  </h2><br>== 允许类型转换， === 不允许  <br>#### 抽象相等 == <br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>类型相同：返回 x === y</li><br><li>null == undefined</li><br><li>number和string, boolean： ToNumber(y)  </li><br><li>bigint和string: StringToBigInt(y) 若是NaN返回false，否则返回 x === n</li><br><li>object: x == ToPrimitive(y)  </li><br><li>bigint和number: 若有NaN, +-Infinity 返回false; 否则在数学意义上做比较  </li><br><li>其他返回false  </li><br></ul><br>#### 严格相等 === <br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>类型不同: false</li><br><li>x: number/bigint 返回 type(x)::equal(x,y)  <strong><em>(+0 = -0)</em></strong></li><br><li>返回SameValueNonNumeric(x,y)  </li><br></ol><br>boolean值比较的时候boolean被转化成number，不要将非boolean值与boolean值比较  <br><img src="../img/compare.png" alt="" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0;"><br><img src="../img/interestingCompare.png" alt="" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0;"></p></p><h3>ARC(x, y, leftFirst)</h3><br><ol style="margin: 1rem 0; padding-left: 2rem;"><br><li>根据leftFirst判断先把哪个ToPriminitive()</li><br><li>都是string则比较字典序</li><br><li>string和bigint: StringToBigInt()</li><br><li>其他则两个都ToNumeric：</li><br><ul style="margin: 0.5rem 0; padding-left: 1.5rem;"><br><li>类型相同 Type(nx)::lessThan(nx,ny)</li><br><li><strong>NaN: undefined</strong></li><br><li>-Infinity < +Infinity</li><br><li>数学意义上比较</li><br></ul><br></ol><p><p><br>                <div class="code-block" style="margin: 1.5rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><br>                    <div class="code-header" style="background: #f5f5f5; padding: 0.5rem 1rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; color: #666; font-weight: 500;">JavaScript</div><br>                    <pre style="background: #f8f9fa; padding: 1.5rem; margin: 0; overflow-x: auto; border-left: 4px solid #667eea;"><code class="language-javascript">// x &lt; y<br>r = ARC(x, y, true);<br>if(r === undefined)<br>	r = false;<br>return r;</p><p>// x &gt; y<br>r = ARC(y, x, false);<br>if(r === undefined)<br>	r = false;<br>return r;</p><p>// x &lt;= y<br>r = ARC(y, x, false);<br>if(r === true || r === undefined)<br>	r = false;<br>else<br>	r = true;<br>return r;</p><p>// x &gt;= y<br>r = ARC(x, y, true);<br>if(r === true || r === undefined)<br>	r = false;<br>else<br>	r = true;<br>return r;</code></pre><br>                </div><br><ul style="margin: 1rem 0; padding-left: 2rem;"><br><li>比较 x = {a : 42}, y = {a : 43}   </li><br></ul><br>  x < , > , >= , <= y均为false   <br>  因为x,y.toPriminitive()调用valueof()返回自身不是原子值，调用toString()均返回[object Object] <br></p>
+        </div>
+    </div>
+    
+    <script>
+        // 添加代码高亮
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为代码块添加复制功能
+            const codeBlocks = document.querySelectorAll('pre code');
+            codeBlocks.forEach(block => {
+                const pre = block.parentElement;
+                const copyBtn = document.createElement('button');
+                copyBtn.innerHTML = '<i class="material-icons">content_copy</i>';
+                copyBtn.className = 'copy-btn';
+                copyBtn.style.cssText = 'position: absolute; top: 8px; right: 8px; background: #667eea; color: white; border: none; padding: 4px; border-radius: 4px; cursor: pointer; font-size: 12px;';
+                
+                copyBtn.onclick = function() {
+                    navigator.clipboard.writeText(block.textContent).then(() => {
+                        copyBtn.innerHTML = '<i class="material-icons">check</i>';
+                        setTimeout(() => {
+                            copyBtn.innerHTML = '<i class="material-icons">content_copy</i>';
+                        }, 2000);
+                    });
+                };
+                
+                pre.style.position = 'relative';
+                pre.appendChild(copyBtn);
+            });
+        });
+    </script>
+</body>
+</html>
