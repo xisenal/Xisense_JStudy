@@ -1,37 +1,37 @@
-// Markdown Parser for JavaScript Learning Website
-// Converts Markdown to Material Design styled HTML
+// JavaScript学习网站的Markdown解析器
+// 将Markdown转换为Material Design风格的HTML
 
-// Simple markdown parser
+// 简单的markdown解析器
 class MarkdownParser {
     constructor() {
         this.rules = [
-            // Headers
+            // 标题
             { pattern: /^### (.*$)/gim, replacement: '<h3>$1</h3>' },
             { pattern: /^## (.*$)/gim, replacement: '<h2>$1</h2>' },
             { pattern: /^# (.*$)/gim, replacement: '<h1>$1</h1>' },
             
-            // Bold and Italic
+            // 粗体和斜体
             { pattern: /\*\*\*(.*?)\*\*\*/g, replacement: '<strong><em>$1</em></strong>' },
             { pattern: /\*\*(.*?)\*\*/g, replacement: '<strong>$1</strong>' },
             { pattern: /\*(.*?)\*/g, replacement: '<em>$1</em>' },
             
-            // Code blocks
+            // 代码块
             { pattern: /```([\s\S]*?)```/g, replacement: '<pre><code>$1</code></pre>' },
             { pattern: /`([^`]+)`/g, replacement: '<code>$1</code>' },
             
-            // Links
+            // 链接
             { pattern: /\[([^\]]+)\]\(([^)]+)\)/g, replacement: '<a href="$2" target="_blank">$1</a>' },
             
-            // Images
+            // 图片
             { pattern: /!\[([^\]]*)\]\(([^)]+)\)/g, replacement: '<img src="$2" alt="$1" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0;">' },
             
-            // Blockquotes
+            // 引用块
             { pattern: /^> (.*$)/gim, replacement: '<blockquote>$1</blockquote>' },
             
-            // Horizontal rules
+            // 水平分割线
             { pattern: /^---$/gim, replacement: '<hr style="border: none; border-top: 2px solid #eee; margin: 2rem 0;">' },
             
-            // Line breaks
+            // 换行
             { pattern: /\n\n/g, replacement: '</p><p>' },
             { pattern: /\n/g, replacement: '<br>' }
         ];
@@ -40,21 +40,21 @@ class MarkdownParser {
     parse(markdown) {
         let html = markdown;
         
-        // Handle tables
+        // 处理表格
         html = this.parseTables(html);
         
-        // Handle lists
+        // 处理列表
         html = this.parseLists(html);
         
-        // Apply other rules
+        // 应用其他规则
         this.rules.forEach(rule => {
             html = html.replace(rule.pattern, rule.replacement);
         });
         
-        // Wrap in paragraphs
+        // 包装为段落
         html = '<p>' + html + '</p>';
         
-        // Clean up empty paragraphs and fix nested elements
+        // 清理空段落并修复嵌套元素
         html = this.cleanupHtml(html);
         
         return html;
@@ -69,14 +69,14 @@ class MarkdownParser {
             
             let tableHtml = '<table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">';
             
-            // Header
+            // 表头
             tableHtml += '<thead><tr>';
             headerCells.forEach(cell => {
                 tableHtml += `<th style="border: 1px solid #ddd; padding: 0.75rem; background: #f5f5f5; font-weight: 500;">${cell}</th>`;
             });
             tableHtml += '</tr></thead>';
             
-            // Body
+            // 表体
             tableHtml += '<tbody>';
             rowLines.forEach(row => {
                 const cells = row.split('|').map(cell => cell.trim()).filter(cell => cell);
@@ -93,19 +93,19 @@ class MarkdownParser {
     }
     
     parseLists(markdown) {
-        // Unordered lists
+        // 无序列表
         markdown = markdown.replace(/^(\s*)[\*\-\+] (.+)$/gm, (match, indent, content) => {
             const level = Math.floor(indent.length / 2);
             return `<li data-level="${level}">${content}</li>`;
         });
         
-        // Ordered lists
+        // 有序列表
         markdown = markdown.replace(/^(\s*)\d+\. (.+)$/gm, (match, indent, content) => {
             const level = Math.floor(indent.length / 2);
             return `<li data-level="${level}" data-ordered="true">${content}</li>`;
         });
         
-        // Wrap lists
+        // 包装列表
         markdown = this.wrapLists(markdown);
         
         return markdown;
@@ -129,7 +129,7 @@ class MarkdownParser {
                 const content = liMatch[2];
                 
                 if (!inList) {
-                    // Start new list
+                    // 开始新列表
                     inList = true;
                     listType = isOrdered ? 'ol' : 'ul';
                     currentLevel = level;
@@ -138,14 +138,14 @@ class MarkdownParser {
                     result.push(`<li>${content}</li>`);
                 } else {
                     if (level > currentLevel) {
-                        // Nested list
+                        // 嵌套列表
                         const nestedType = isOrdered ? 'ol' : 'ul';
                         listStack.push({ type: nestedType, level: level });
                         result.push(`<${nestedType} style="margin: 0.5rem 0; padding-left: 1.5rem;">`);
                         result.push(`<li>${content}</li>`);
                         currentLevel = level;
                     } else if (level < currentLevel) {
-                        // Close nested lists
+                        // 关闭嵌套列表
                         while (listStack.length > 0 && listStack[listStack.length - 1].level > level) {
                             const closingList = listStack.pop();
                             result.push(`</${closingList.type}>`);
@@ -153,13 +153,13 @@ class MarkdownParser {
                         result.push(`<li>${content}</li>`);
                         currentLevel = level;
                     } else {
-                        // Same level
+                        // 同级别
                         result.push(`<li>${content}</li>`);
                     }
                 }
             } else {
                 if (inList) {
-                    // Close all open lists
+                    // 关闭所有打开的列表
                     while (listStack.length > 0) {
                         const closingList = listStack.pop();
                         result.push(`</${closingList.type}>`);
@@ -170,7 +170,7 @@ class MarkdownParser {
             }
         }
         
-        // Close any remaining open lists
+        // 关闭任何剩余的打开列表
         if (inList) {
             while (listStack.length > 0) {
                 const closingList = listStack.pop();
@@ -182,21 +182,21 @@ class MarkdownParser {
     }
     
     cleanupHtml(html) {
-        // Remove empty paragraphs
+        // 移除空段落
         html = html.replace(/<p>\s*<\/p>/g, '');
         html = html.replace(/<p>\s*<br>\s*<\/p>/g, '');
         
-        // Fix paragraphs around block elements
+        // 修复块元素周围的段落
         const blockElements = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre', 'blockquote', 'ul', 'ol', 'table', 'hr'];
         blockElements.forEach(tag => {
             html = html.replace(new RegExp(`<p>\s*<${tag}`, 'g'), `</p><${tag}`);
             html = html.replace(new RegExp(`</${tag}>\s*</p>`, 'g'), `</${tag}><p>`);
         });
         
-        // Fix multiple consecutive br tags
+        // 修复多个连续的br标签
         html = html.replace(/(<br>\s*){3,}/g, '</p><p>');
         
-        // Remove leading/trailing empty paragraphs
+        // 移除开头/结尾的空段落
         html = html.replace(/^<p>\s*<\/p>/, '');
         html = html.replace(/<p>\s*<\/p>$/, '');
         
@@ -204,7 +204,7 @@ class MarkdownParser {
     }
 }
 
-// Enhanced markdown parser with syntax highlighting
+// 带语法高亮的增强markdown解析器
 class EnhancedMarkdownParser extends MarkdownParser {
     constructor() {
         super();
@@ -228,16 +228,16 @@ class EnhancedMarkdownParser extends MarkdownParser {
     parse(markdown) {
         let html = markdown;
         
-        // Handle code blocks with language specification
+        // 处理带语言规范的代码块
         html = this.parseCodeBlocks(html);
         
-        // Handle tables
+        // 处理表格
         html = this.parseTables(html);
         
-        // Handle lists
+        // 处理列表
         html = this.parseLists(html);
         
-        // Apply other rules (excluding the basic code block rule)
+        // 应用其他规则（排除基本代码块规则）
         const filteredRules = this.rules.filter(rule => 
             !rule.pattern.toString().includes('```')
         );
@@ -246,10 +246,10 @@ class EnhancedMarkdownParser extends MarkdownParser {
             html = html.replace(rule.pattern, rule.replacement);
         });
         
-        // Wrap in paragraphs
+        // 包装为段落
         html = '<p>' + html + '</p>';
         
-        // Clean up
+        // 清理
         html = this.cleanupHtml(html);
         
         return html;
@@ -280,20 +280,20 @@ class EnhancedMarkdownParser extends MarkdownParser {
     }
 }
 
-// Initialize parser
+// 初始化解析器
 const markdownParser = new EnhancedMarkdownParser();
 
-// Global function to parse markdown
+// 解析markdown的全局函数
 window.parseMarkdown = function(markdown) {
     return markdownParser.parse(markdown);
 };
 
-// Export for module use
+// 导出供模块使用
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { MarkdownParser, EnhancedMarkdownParser };
 }
 
-// Add syntax highlighting styles
+// 添加语法高亮样式
 function addSyntaxHighlightingStyles() {
     const style = document.createElement('style');
     style.textContent = `
@@ -337,7 +337,7 @@ function addSyntaxHighlightingStyles() {
             color: #ed8b00;
         }
         
-        /* Basic syntax highlighting */
+        /* 基本语法高亮 */
         .code-block .keyword {
             color: #d73a49;
             font-weight: bold;
@@ -364,20 +364,20 @@ function addSyntaxHighlightingStyles() {
     document.head.appendChild(style);
 }
 
-// Add styles when DOM is ready
+// DOM准备好时添加样式
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', addSyntaxHighlightingStyles);
 } else {
     addSyntaxHighlightingStyles();
 }
 
-// Simple syntax highlighting for common patterns
+// 常见模式的简单语法高亮
 function applySyntaxHighlighting(codeElement) {
     if (!codeElement) return;
     
     let html = codeElement.innerHTML;
     
-    // JavaScript keywords
+    // JavaScript关键字
     const jsKeywords = ['function', 'var', 'let', 'const', 'if', 'else', 'for', 'while', 'return', 'class', 'extends', 'import', 'export', 'default', 'async', 'await', 'try', 'catch', 'finally', 'throw', 'new', 'this', 'super', 'static', 'get', 'set'];
     
     jsKeywords.forEach(keyword => {
@@ -385,32 +385,32 @@ function applySyntaxHighlighting(codeElement) {
         html = html.replace(regex, `<span class="keyword">${keyword}</span>`);
     });
     
-    // Strings
+    // 字符串
     html = html.replace(/(['"`])([^'"\`]*?)\1/g, '<span class="string">$1$2$1</span>');
     
-    // Comments
+    // 注释
     html = html.replace(/\/\/.*$/gm, '<span class="comment">$&</span>');
     html = html.replace(/\/\*[\s\S]*?\*\//g, '<span class="comment">$&</span>');
     
-    // Numbers
+    // 数字
     html = html.replace(/\b\d+(\.\d+)?\b/g, '<span class="number">$&</span>');
     
-    // Function names
+    // 函数名
     html = html.replace(/\b([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\(/g, '<span class="function">$1</span>(');
     
     codeElement.innerHTML = html;
 }
 
-// Auto-apply syntax highlighting to code blocks
+// 自动为代码块应用语法高亮
 document.addEventListener('DOMContentLoaded', function() {
-    // Apply to existing code blocks
+    // 应用到现有代码块
     document.querySelectorAll('pre code').forEach(applySyntaxHighlighting);
     
-    // Observer for dynamically added code blocks
+    // 动态添加代码块的观察器
     const observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
             mutation.addedNodes.forEach(function(node) {
-                if (node.nodeType === 1) { // Element node
+                if (node.nodeType === 1) { // 元素节点
                     const codeBlocks = node.querySelectorAll ? node.querySelectorAll('pre code') : [];
                     codeBlocks.forEach(applySyntaxHighlighting);
                     

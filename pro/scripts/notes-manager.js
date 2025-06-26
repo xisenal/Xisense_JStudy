@@ -1,5 +1,5 @@
-// Notes Manager for JavaScript Learning Website
-// Handles note storage, search, and management functionality
+// JavaScript学习网站的笔记管理器
+// 处理笔记存储、搜索和管理功能
 
 class NotesManager {
     constructor() {
@@ -8,7 +8,7 @@ class NotesManager {
         this.initializeSearchIndex();
     }
     
-    // Initialize search index for better performance
+    // 初始化搜索索引以提高性能
     initializeSearchIndex() {
         const notes = this.getAllNotes();
         notes.forEach(note => {
@@ -16,7 +16,7 @@ class NotesManager {
         });
     }
     
-    // Add note to search index
+    // 将笔记添加到搜索索引
     addToSearchIndex(note) {
         const searchableText = (
             note.title + ' ' + 
@@ -35,7 +35,7 @@ class NotesManager {
         });
     }
     
-    // Remove note from search index
+    // 从搜索索引中移除笔记
     removeFromSearchIndex(noteId) {
         this.searchIndex.forEach((noteIds, word) => {
             noteIds.delete(noteId);
@@ -45,7 +45,7 @@ class NotesManager {
         });
     }
     
-    // Save note
+    // 保存笔记
     saveNote(note) {
         try {
             const notes = this.getAllNotes();
@@ -74,7 +74,7 @@ class NotesManager {
         }
     }
     
-    // Get all notes
+    // 获取所有笔记
     getAllNotes() {
         try {
             const stored = localStorage.getItem(this.storageKey);
@@ -85,13 +85,13 @@ class NotesManager {
         }
     }
     
-    // Get note by ID
+    // 根据ID获取笔记
     getNoteById(id) {
         const notes = this.getAllNotes();
         return notes.find(note => note.id === id);
     }
     
-    // Delete note
+    // 删除笔记
     deleteNote(id) {
         try {
             const notes = this.getAllNotes();
@@ -107,7 +107,7 @@ class NotesManager {
         }
     }
     
-    // Search notes
+    // 搜索笔记
     searchNotes(query, options = {}) {
         if (!query || query.trim().length === 0) {
             return this.getAllNotes();
@@ -129,7 +129,7 @@ class NotesManager {
         }
     }
     
-    // Exact search
+    // 精确搜索
     exactSearch(notes, query, searchFields, caseSensitive) {
         return notes.filter(note => {
             return searchFields.some(field => {
@@ -149,7 +149,7 @@ class NotesManager {
         });
     }
     
-    // Fuzzy search using search index
+    // 使用搜索索引进行模糊搜索
     fuzzySearch(notes, query, searchFields, caseSensitive) {
         const queryWords = query.split(/\s+/).filter(word => word.length > 0);
         const matchingNoteIds = new Set();
@@ -175,7 +175,7 @@ class NotesManager {
         return matchingNotes;
     }
     
-    // Calculate relevance score for search results
+    // 计算搜索结果的相关性分数
     calculateRelevanceScore(note, queryWords, searchFields, caseSensitive) {
         let score = 0;
         const fieldWeights = {
@@ -211,7 +211,7 @@ class NotesManager {
         return score;
     }
     
-    // Get notes by tag
+    // 根据标签获取笔记
     getNotesByTag(tag) {
         const notes = this.getAllNotes();
         return notes.filter(note => 
@@ -219,7 +219,7 @@ class NotesManager {
         );
     }
     
-    // Get all tags
+    // 获取所有标签
     getAllTags() {
         const notes = this.getAllNotes();
         const tags = new Set();
@@ -233,7 +233,7 @@ class NotesManager {
         return Array.from(tags).sort();
     }
     
-    // Add tag to note
+    // 为笔记添加标签
     addTagToNote(noteId, tag) {
         const note = this.getNoteById(noteId);
         if (!note) return false;
@@ -250,7 +250,7 @@ class NotesManager {
         return true;
     }
     
-    // Remove tag from note
+    // 从笔记中移除标签
     removeTagFromNote(noteId, tag) {
         const note = this.getNoteById(noteId);
         if (!note || !note.tags) return false;
@@ -259,7 +259,7 @@ class NotesManager {
         return this.saveNote(note);
     }
     
-    // Export notes
+    // 导出笔记
     exportNotes(format = 'json') {
         const notes = this.getAllNotes();
         
@@ -275,7 +275,7 @@ class NotesManager {
         }
     }
     
-    // Export as JSON
+    // 导出为JSON格式
     exportAsJSON(notes) {
         return {
             data: JSON.stringify(notes, null, 2),
@@ -284,7 +284,7 @@ class NotesManager {
         };
     }
     
-    // Export as Markdown
+    // 导出为Markdown格式
     exportAsMarkdown(notes) {
         let markdown = '# JavaScript学习笔记\n\n';
         markdown += `导出时间: ${new Date().toLocaleString('zh-CN')}\n\n`;
@@ -313,7 +313,7 @@ class NotesManager {
         };
     }
     
-    // Export as HTML
+    // 导出为HTML格式
     exportAsHTML(notes) {
         let html = `
         <!DOCTYPE html>
@@ -383,7 +383,7 @@ class NotesManager {
         };
     }
     
-    // Import notes
+    // 导入笔记
     importNotes(data, format = 'json') {
         try {
             let importedNotes = [];
@@ -405,13 +405,13 @@ class NotesManager {
             let importCount = 0;
             
             importedNotes.forEach(note => {
-                // Check if note already exists
+                // 检查笔记是否已存在
                 const exists = existingNotes.some(existing => 
                     existing.title === note.title && existing.fileName === note.fileName
                 );
                 
                 if (!exists) {
-                    // Generate new ID and add import timestamp
+                    // 生成新ID并添加导入时间戳
                     note.id = this.generateId();
                     note.importedAt = new Date().toISOString();
                     mergedNotes.push(note);
@@ -436,7 +436,7 @@ class NotesManager {
         }
     }
     
-    // Get statistics
+    // 获取统计信息
     getStatistics() {
         const notes = this.getAllNotes();
         const tags = this.getAllTags();
@@ -457,7 +457,7 @@ class NotesManager {
         };
     }
     
-    // Utility methods
+    // 工具方法
     generateId() {
         return 'note_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
     }
@@ -468,7 +468,7 @@ class NotesManager {
         return div.innerHTML;
     }
     
-    // Clear all notes (with confirmation)
+    // 清除所有笔记（需要确认）
     clearAllNotes() {
         try {
             localStorage.removeItem(this.storageKey);
@@ -481,14 +481,14 @@ class NotesManager {
     }
 }
 
-// Initialize global notes manager
+// 初始化全局笔记管理器
 const notesManager = new NotesManager();
 
-// Export for global use
+// 导出供全局使用
 window.NotesManager = NotesManager;
 window.notesManager = notesManager;
 
-// Enhanced search functionality
+// 增强的搜索功能
 function performAdvancedSearch() {
     const searchInput = document.getElementById('searchInput');
     if (!searchInput) return;
@@ -503,7 +503,7 @@ function performAdvancedSearch() {
     displaySearchResults(results, query);
 }
 
-// Download functionality
+// 下载功能
 function downloadFile(data, filename, mimeType) {
     const blob = new Blob([data], { type: mimeType });
     const url = URL.createObjectURL(blob);
@@ -518,7 +518,7 @@ function downloadFile(data, filename, mimeType) {
     URL.revokeObjectURL(url);
 }
 
-// Export notes functionality
+// 导出笔记功能
 function exportNotes(format = 'json') {
     try {
         const exportData = notesManager.exportNotes(format);
@@ -535,7 +535,7 @@ function exportNotes(format = 'json') {
     }
 }
 
-// Import notes functionality
+// 导入笔记功能
 function importNotes(file) {
     const reader = new FileReader();
     
@@ -550,7 +550,7 @@ function importNotes(file) {
                     'success'
                 );
             }
-            // Refresh the notes display
+            // 刷新笔记显示
             if (window.loadStoredNotes) {
                 window.loadStoredNotes();
             }
@@ -570,7 +570,7 @@ function importNotes(file) {
     reader.readAsText(file);
 }
 
-// Make functions globally available
+// 使函数全局可用
 window.performAdvancedSearch = performAdvancedSearch;
 window.exportNotes = exportNotes;
 window.importNotes = importNotes;

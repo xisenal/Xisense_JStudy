@@ -260,74 +260,307 @@ body {
     margin: 0 auto;
 }
 
-/* Syntax Section */
+/* 语法导航样式 */
+.syntax-nav {
+    margin: 2rem 0;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.nav-tabs {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 0;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    position: relative;
+}
+
+.tab-btn:hover {
+    color: #2196F3;
+    background: rgba(33, 150, 243, 0.05);
+}
+
+.tab-btn.active {
+    color: #2196F3;
+    border-bottom-color: #2196F3;
+    background: rgba(33, 150, 243, 0.1);
+}
+
+/* 标签页内容样式 */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 语法部分样式 */
 .syntax-categories {
     display: grid;
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2rem;
 }
 
 .category-card {
     background: white;
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    border-radius: 16px;
+    padding: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
 }
 
 .category-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    border-color: #2196F3;
 }
 
-.category-card h3 {
-    font-size: 1.4rem;
-    color: #333;
-    margin-bottom: 1rem;
-    font-weight: 500;
+/* 卡片头部样式 */
+.card-header {
+    background: linear-gradient(135deg, #2196F3, #21CBF3);
+    color: white;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
-.code-example {
+.card-header i {
+    font-size: 2rem;
+    opacity: 0.9;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* 卡片描述样式 */
+.card-description {
+    padding: 1.5rem 2rem 1rem;
     background: #f8f9fa;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin: 1.5rem 0;
-    border-left: 4px solid #667eea;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.card-description p {
+    margin: 0;
+    color: #666;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* 代码示例样式 */
+.code-example {
+    margin: 0;
+    position: relative;
+}
+
+.code-header {
+    background: #37474f;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #455a64;
+}
+
+.code-title {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.copy-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.copy-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.copy-btn i {
+    font-size: 1rem;
 }
 
 .code-example pre {
     margin: 0;
+    padding: 2rem;
     overflow-x: auto;
+    background: #263238;
+    color: #ffffff;
+    font-size: 0.85rem;
+    line-height: 1.8;
 }
 
 .code-example code {
-    font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: #333;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
 }
 
+/* 小贴士样式 */
+.tips-box {
+    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    border-left: 4px solid #ff9800;
+    padding: 1.5rem 2rem;
+    margin: 0;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.tips-box i {
+    color: #ff9800;
+    font-size: 1.5rem;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+}
+
+.tips-box strong {
+    color: #e65100;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.tips-box ul {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.tips-box li {
+    margin-bottom: 0.3rem;
+    color: #5d4037;
+    line-height: 1.5;
+}
+
+.tips-box code {
+    background: rgba(255, 152, 0, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    color: #e65100;
+}
+
+/* 外部链接样式 */
 .external-links {
-    margin-top: 1rem;
+    padding: 1.5rem 2rem 2rem;
+    background: white;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .link-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 8px 16px;
-    background: #e3f2fd;
-    color: #1976d2;
+    padding: 0.75rem 1.25rem;
+    background: linear-gradient(135deg, #2196F3, #21CBF3);
+    color: white;
     text-decoration: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 0.9rem;
-    transition: background-color 0.3s ease;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
 }
 
 .link-btn:hover {
-    background: #bbdefb;
+    background: linear-gradient(135deg, #1976D2, #1E88E5);
+    text-decoration: none;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+}
+
+.link-btn i {
+    font-size: 1rem;
 }
 
 .link-btn .material-icons {
     font-size: 18px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .syntax-categories {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .nav-tabs {
+        justify-content: flex-start;
+    }
+    
+    .tab-btn {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .card-header {
+        padding: 1rem 1.5rem;
+    }
+    
+    .card-header h3 {
+        font-size: 1.3rem;
+    }
+    
+    .card-description,
+    .external-links,
+    .tips-box {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+    
+    .code-example pre {
+        padding: 1.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .external-links {
+        flex-direction: column;
+    }
+    
+    .link-btn {
+        justify-content: center;
+    }
 }
 
 /* Notes Section */

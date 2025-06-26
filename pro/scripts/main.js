@@ -1,21 +1,21 @@
-// Main JavaScript for JavaScript Learning Website
+// JavaScript学习网站主脚本
 
-// DOM Elements
+// DOM元素
 const navLinks = document.querySelectorAll('.nav-link');
 const contentSections = document.querySelectorAll('.content-section');
 
-// Initialize the application
+// 初始化应用程序
 document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
     initializeUploadArea();
     loadStoredNotes();
     initializeCodeEditor();
     
-    // Show home section by default
+    // 默认显示首页部分
     showSection('home');
 });
 
-// Navigation functionality
+// 导航功能
 function initializeNavigation() {
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -27,30 +27,30 @@ function initializeNavigation() {
     });
 }
 
-// Show specific section
+// 显示指定部分
 function showSection(sectionId) {
-    // Hide all sections
+    // 隐藏所有部分
     contentSections.forEach(section => {
         section.classList.remove('active');
     });
     
-    // Show target section
+    // 显示目标部分
     const targetSection = document.getElementById(sectionId);
     if (targetSection) {
         targetSection.classList.add('active');
     }
     
-    // Update URL hash
+    // 更新URL哈希
     window.location.hash = sectionId;
     
-    // Update navigation
+    // 更新导航
     const targetNavLink = document.querySelector(`[data-section="${sectionId}"]`);
     if (targetNavLink) {
         updateActiveNavLink(targetNavLink);
     }
 }
 
-// Update active navigation link
+// 更新活动导航链接
 function updateActiveNavLink(activeLink) {
     navLinks.forEach(link => {
         link.classList.remove('active');
@@ -58,19 +58,19 @@ function updateActiveNavLink(activeLink) {
     activeLink.classList.add('active');
 }
 
-// Initialize upload area with drag and drop
+// 初始化上传区域（支持拖拽）
 function initializeUploadArea() {
     const uploadArea = document.getElementById('uploadArea');
     const fileInput = document.getElementById('fileInput');
     
     if (!uploadArea || !fileInput) return;
     
-    // Click to upload
+    // 点击上传
     uploadArea.addEventListener('click', function() {
         fileInput.click();
     });
     
-    // Drag and drop events
+    // 拖拽事件
     uploadArea.addEventListener('dragover', function(e) {
         e.preventDefault();
         uploadArea.classList.add('dragover');
@@ -89,7 +89,7 @@ function initializeUploadArea() {
         handleFileUpload(files);
     });
     
-    // File input change
+    // 文件输入变化
 fileInput.addEventListener('change', function(e) {
     const files = e.target.files;
     handleFileUpload(files);
@@ -99,7 +99,7 @@ fileInput.addEventListener('change', function(e) {
 });
 }
 
-// Handle file upload
+// 处理文件上传
 function handleFileUpload(files) {
     if (!files || files.length === 0) return;
     
@@ -112,7 +112,7 @@ function handleFileUpload(files) {
     });
 }
 
-// Process markdown file
+// 处理markdown文件
 function processMarkdownFile(file) {
     const reader = new FileReader();
     
@@ -156,7 +156,7 @@ function processMarkdownFile(file) {
     reader.readAsText(file);
 }
 
-// Extract title from markdown content
+// 从markdown内容中提取标题
 function extractTitle(content) {
     const lines = content.split('\n');
     for (let line of lines) {
@@ -168,16 +168,16 @@ function extractTitle(content) {
     return null;
 }
 
-// Generate preview text
+// 生成预览文本
 function generatePreview(content, maxLength = 150) {
-    // Remove markdown syntax for preview
+    // 移除markdown语法用于预览
     let preview = content
-        .replace(/#{1,6}\s+/g, '') // Remove headers
-        .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold
-        .replace(/\*(.*?)\*/g, '$1') // Remove italic
-        .replace(/`(.*?)`/g, '$1') // Remove inline code
-        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove links
-        .replace(/\n+/g, ' ') // Replace newlines with spaces
+        .replace(/#{1,6}\s+/g, '') // 移除标题
+        .replace(/\*\*(.*?)\*\*/g, '$1') // 移除粗体
+        .replace(/\*(.*?)\*/g, '$1') // 移除斜体
+        .replace(/`(.*?)`/g, '$1') // 移除内联代码
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // 移除链接
+        .replace(/\n+/g, ' ') // 用空格替换换行符
         .trim();
     
     if (preview.length > maxLength) {
@@ -187,12 +187,12 @@ function generatePreview(content, maxLength = 150) {
     return preview;
 }
 
-// Generate unique ID
+// 生成唯一ID
 function generateId() {
     return 'note_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 }
 
-// Generate HTML file content for note
+// 为笔记生成HTML文件内容
 function generateNoteHTML(note) {
     const parser = new EnhancedMarkdownParser();
     const htmlContent = parser.parse(note.content);
@@ -326,7 +326,7 @@ function generateNoteHTML(note) {
 </html>`;
 }
 
-// Create HTML file using modern File System Access API or fallback to download
+// 使用现代文件系统访问API创建HTML文件或降级到下载
 async function createHTMLFile(fileName, content) {
     try {
         // 检查浏览器支持并询问用户偏好
@@ -365,7 +365,7 @@ async function createHTMLFile(fileName, content) {
     }
 }
 
-// 使用File System Access API创建文件
+// 使用文件系统访问API创建文件
 async function createFileWithDirectoryPicker(fileName, content) {
     try {
         // 检查是否已经有保存的目录句柄
@@ -428,20 +428,20 @@ function downloadHTMLFile(fileName, content) {
     showNotification(`HTML文件 ${fileName} 已下载，请手动保存到 src 文件夹中`, 'info');
 }
 
-// Save note to localStorage
+// 保存笔记到本地存储
 function saveNote(note) {
     let notes = getStoredNotes();
     notes.push(note);
     localStorage.setItem('jsLearningNotes', JSON.stringify(notes));
 }
 
-// Get stored notes
+// 获取存储的笔记
 function getStoredNotes() {
     const stored = localStorage.getItem('jsLearningNotes');
     return stored ? JSON.parse(stored) : [];
 }
 
-// Load and display stored notes
+// 加载并显示存储的笔记
 function loadStoredNotes() {
     const notes = getStoredNotes();
     const notesList = document.getElementById('notesList');
@@ -459,12 +459,12 @@ function loadStoredNotes() {
     });
 }
 
-// Display a note in the list
+// 在列表中显示笔记
 function displayNote(note, prepend = true) {
     const notesList = document.getElementById('notesList');
     if (!notesList) return;
     
-    // Remove empty state if it exists
+    // 移除空状态（如果存在）
     const emptyState = notesList.querySelector('.empty-state');
     if (emptyState) {
         emptyState.remove();
@@ -479,7 +479,7 @@ function displayNote(note, prepend = true) {
     }
 }
 
-// Create note element
+// 创建笔记元素
 function createNoteElement(note) {
     const noteDiv = document.createElement('div');
     noteDiv.className = 'note-item';
@@ -512,7 +512,7 @@ function createNoteElement(note) {
     return noteDiv;
 }
 
-// View note in full
+// 完整查看笔记
 function viewNote(note) {
     // 如果有HTML文件，直接打开
     if (note.htmlFile) {
@@ -524,7 +524,7 @@ function viewNote(note) {
     const modal = createNoteModal(note);
     document.body.appendChild(modal);
     
-    // Parse and display markdown
+    // 解析并显示markdown
     const contentDiv = modal.querySelector('.modal-content .markdown-content');
     if (contentDiv && window.parseMarkdown) {
         contentDiv.innerHTML = window.parseMarkdown(note.content);
@@ -533,7 +533,7 @@ function viewNote(note) {
     }
 }
 
-// Create note modal
+// 创建笔记模态框
 function createNoteModal(note) {
     const modal = document.createElement('div');
     modal.className = 'modal';
@@ -547,12 +547,12 @@ function createNoteModal(note) {
                 </button>
             </div>
             <div class="markdown-content">
-                <!-- Content will be inserted here -->
+                <!-- 内容将在此处插入 -->
             </div>
         </div>
     `;
     
-    // Add modal styles
+    // 添加模态框样式
     const style = document.createElement('style');
     style.textContent = `
         .modal {
@@ -619,7 +619,7 @@ function createNoteModal(note) {
     `;
     modal.appendChild(style);
     
-    // Close modal events
+    // 关闭模态框事件
     const overlay = modal.querySelector('.modal-overlay');
     const closeBtn = modal.querySelector('.modal-close');
     
@@ -631,7 +631,7 @@ function createNoteModal(note) {
         document.body.removeChild(modal);
     });
     
-    // ESC key to close
+    // ESC键关闭
     const escHandler = (e) => {
         if (e.key === 'Escape') {
             document.body.removeChild(modal);
@@ -643,7 +643,7 @@ function createNoteModal(note) {
     return modal;
 }
 
-// Show empty state
+// 显示空状态
 function showEmptyState() {
     const notesList = document.getElementById('notesList');
     if (!notesList) return;
@@ -657,7 +657,7 @@ function showEmptyState() {
     `;
 }
 
-// Search notes
+// 搜索笔记
 function searchNotes() {
     const searchInput = document.getElementById('searchInput');
     if (!searchInput) return;
@@ -679,19 +679,19 @@ function searchNotes() {
     displaySearchResults(filteredNotes, query);
 }
 
-// Open notes index page
+// 打开笔记索引页面
 function openNotesIndex() {
     window.open('src/index.html', '_blank');
 }
 
-// Reset file save preference
+// 重置文件保存偏好
 function resetSavePreference() {
     localStorage.removeItem('fileSavePreference');
     window.savedDirHandle = null;
     showNotification('文件保存偏好已重置，下次上传时将重新询问保存方式', 'success');
 }
 
-// Delete note function
+// 删除笔记功能
 function deleteNote(noteId, event) {
     // 阻止事件冒泡，避免触发笔记打开
     if (event) {
@@ -744,7 +744,7 @@ function deleteNote(noteId, event) {
     }
 }
 
-// Delete all notes function
+// 删除所有笔记功能
 function deleteAllNotes() {
     if (!confirm('确定要删除所有笔记吗？此操作不可撤销。')) {
         return;
@@ -777,7 +777,7 @@ function deleteAllNotes() {
     }
 }
 
-// Display search results
+// 显示搜索结果
 function displaySearchResults(notes, query) {
     const notesList = document.getElementById('notesList');
     if (!notesList) return;
@@ -800,7 +800,7 @@ function displaySearchResults(notes, query) {
     });
 }
 
-// Add search on enter key
+// 添加回车键搜索
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
@@ -810,7 +810,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Real-time search
+        // 实时搜索
         searchInput.addEventListener('input', function() {
             if (this.value.trim() === '') {
                 loadStoredNotes();
@@ -819,9 +819,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Show notification
+// 显示通知
 function showNotification(message, type = 'info') {
-    // Remove existing notifications
+    // 移除现有通知
     const existing = document.querySelector('.notification');
     if (existing) {
         existing.remove();
@@ -836,7 +836,7 @@ function showNotification(message, type = 'info') {
         </button>
     `;
     
-    // Add notification styles
+    // 添加通知样式
     const style = document.createElement('style');
     style.textContent = `
         .notification {
@@ -881,7 +881,7 @@ function showNotification(message, type = 'info') {
     `;
     notification.appendChild(style);
     
-    // Close button
+    // 关闭按钮
     const closeBtn = notification.querySelector('.notification-close');
     closeBtn.addEventListener('click', () => {
         notification.remove();
@@ -889,7 +889,7 @@ function showNotification(message, type = 'info') {
     
     document.body.appendChild(notification);
     
-    // Auto remove after 5 seconds
+    // 5秒后自动移除
     setTimeout(() => {
         if (notification.parentNode) {
             notification.remove();
@@ -897,14 +897,14 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
-// Utility function to escape HTML
+// 转义HTML的工具函数
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
 }
 
-// Handle browser back/forward
+// 处理浏览器前进/后退
 window.addEventListener('hashchange', function() {
     const hash = window.location.hash.substring(1);
     if (hash) {
@@ -912,12 +912,18 @@ window.addEventListener('hashchange', function() {
     }
 });
 
-// Initialize from URL hash on load
+// 页面加载时从URL哈希初始化
 window.addEventListener('load', function() {
     const hash = window.location.hash.substring(1);
     if (hash) {
         showSection(hash);
     }
+    
+    // 初始化标签页功能
+    initSyntaxTabs();
+    
+    // 为所有复制按钮添加全局事件监听
+    window.copyCode = copyCode;
 });
 
 // JavaScript代码编辑器功能
@@ -1288,6 +1294,54 @@ function loadSavedCode() {
     }
 }
 
+// 标签页切换功能
+function initSyntaxTabs() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetTab = button.getAttribute('data-tab');
+            
+            // 移除所有活动状态
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // 添加活动状态
+            button.classList.add('active');
+            const targetContent = document.getElementById(targetTab);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+}
+
+// 代码复制功能
+function copyCode(button) {
+    const codeBlock = button.closest('.code-example').querySelector('pre code');
+    const code = codeBlock.textContent;
+    
+    navigator.clipboard.writeText(code).then(() => {
+        // 显示复制成功提示
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="material-icons">check</i>';
+        button.style.background = 'rgba(76, 175, 80, 0.3)';
+        
+        setTimeout(() => {
+            button.innerHTML = originalText;
+            button.style.background = 'rgba(255, 255, 255, 0.1)';
+        }, 2000);
+    }).catch(err => {
+        console.error('复制失败:', err);
+        // 降级方案：选中文本
+        const range = document.createRange();
+        range.selectNode(codeBlock);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+    });
+}
+
 // Export functions for use in other scripts
 window.JSLearningApp = {
     showSection,
@@ -1298,5 +1352,9 @@ window.JSLearningApp = {
     runCode,
     clearCode,
     saveCode,
-    loadCode
+    loadCode,
+    addOutput,
+    formatValue,
+    initSyntaxTabs,
+    copyCode
 };

@@ -88,109 +88,837 @@
         <section id="syntax" class="content-section">
             <div class="section-header">
                 <h2>JavaScript基础语法</h2>
-                <p>掌握JavaScript的核心概念和语法结构</p>
+                <p>掌握JavaScript的核心概念和语法结构，从基础到进阶全面学习</p>
             </div>
+            
+            <!-- 语法导航 -->
+            <div class="syntax-nav">
+                <div class="nav-tabs">
+                    <button class="tab-btn active" data-tab="basics">基础语法</button>
+                    <button class="tab-btn" data-tab="advanced">进阶概念</button>
+                    <button class="tab-btn" data-tab="es6">ES6+特性</button>
+                    <button class="tab-btn" data-tab="dom">DOM操作</button>
+                </div>
+            </div>
+
             <div class="syntax-content">
-                <div class="syntax-categories">
-                    <div class="category-card">
-                        <h3>变量和数据类型</h3>
-                        <div class="code-example">
-                            <pre><code>// 变量声明
-let name = "JavaScript";
-const version = 2023;
-var isActive = true;
+                <!-- 基础语法标签页 -->
+                <div id="basics" class="tab-content active">
+                    <div class="syntax-categories">
+                        <div class="category-card">
+                            <div class="card-header">
+                                <i class="material-icons">storage</i>
+                                <h3>变量和数据类型</h3>
+                            </div>
+                            <div class="card-description">
+                                <p>JavaScript中的变量声明方式和基本数据类型，包括原始类型和引用类型。</p>
+                            </div>
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <span class="code-title">变量声明与数据类型</span>
+                                    <button class="copy-btn" onclick="copyCode(this)">
+                                        <i class="material-icons">content_copy</i>
+                                    </button>
+                                </div>
+                                <pre><code>// 变量声明的三种方式
+let name = "JavaScript";     // 块级作用域，可重新赋值
+const version = 2023;        // 块级作用域，不可重新赋值
+var isActive = true;         // 函数作用域，可重新赋值
 
-// 数据类型
-let number = 42;
-let string = "Hello World";
-let boolean = true;
-let array = [1, 2, 3];
-let object = {key: "value"};</code></pre>
-                        </div>
-                        <div class="external-links">
-                            <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Grammar_and_types" target="_blank" class="link-btn">
-                                <i class="material-icons">open_in_new</i>
-                                MDN文档
-                            </a>
-                        </div>
-                    </div>
+// 基本数据类型 (Primitive Types)
+let number = 42;             // Number 数字
+let string = "Hello World";  // String 字符串
+let boolean = true;          // Boolean 布尔值
+let undefinedVar;            // undefined 未定义
+let nullVar = null;          // null 空值
+let symbol = Symbol('id');   // Symbol 符号
+let bigint = 123n;           // BigInt 大整数
 
-                    <div class="category-card">
-                        <h3>函数</h3>
-                        <div class="code-example">
-                            <pre><code>// 函数声明
+// 引用数据类型 (Reference Types)
+let array = [1, 2, 3, 4, 5];           // Array 数组
+let object = {                         // Object 对象
+    name: "张三",
+    age: 25,
+    city: "北京"
+};
+let func = function() { return "函数"; }; // Function 函数
+
+// 类型检测
+console.log(typeof number);    // "number"
+console.log(typeof string);    // "string"
+console.log(Array.isArray(array)); // true</code></pre>
+                            </div>
+                            <div class="tips-box">
+                                <i class="material-icons">lightbulb</i>
+                                <div>
+                                    <strong>小贴士：</strong>
+                                    <ul>
+                                        <li>优先使用 <code>const</code>，需要重新赋值时使用 <code>let</code></li>
+                                        <li>避免使用 <code>var</code>，它有函数作用域的问题</li>
+                                        <li>使用 <code>typeof</code> 检测基本类型，<code>Array.isArray()</code> 检测数组</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="external-links">
+                                <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Grammar_and_types" target="_blank" class="link-btn">
+                                    <i class="material-icons">open_in_new</i>
+                                    MDN文档
+                                </a>
+                                <a href="https://javascript.info/variables" target="_blank" class="link-btn">
+                                    <i class="material-icons">school</i>
+                                    详细教程
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="category-card">
+                            <div class="card-header">
+                                <i class="material-icons">functions</i>
+                                <h3>函数</h3>
+                            </div>
+                            <div class="card-description">
+                                <p>函数是JavaScript的核心概念，学习不同的函数声明方式和高级用法。</p>
+                            </div>
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <span class="code-title">函数的多种形式</span>
+                                    <button class="copy-btn" onclick="copyCode(this)">
+                                        <i class="material-icons">content_copy</i>
+                                    </button>
+                                </div>
+                                <pre><code>// 1. 函数声明 (Function Declaration)
 function greet(name) {
     return `Hello, ${name}!`;
 }
 
-// 箭头函数
-const add = (a, b) => a + b;
-
-// 函数表达式
+// 2. 函数表达式 (Function Expression)
 const multiply = function(x, y) {
     return x * y;
-};</code></pre>
-                        </div>
-                        <div class="external-links">
-                            <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Functions" target="_blank" class="link-btn">
-                                <i class="material-icons">open_in_new</i>
-                                MDN文档
-                            </a>
-                        </div>
-                    </div>
+};
 
-                    <div class="category-card">
-                        <h3>控制流程</h3>
-                        <div class="code-example">
-                            <pre><code>// 条件语句
-if (condition) {
-    // 执行代码
-} else if (anotherCondition) {
-    // 执行其他代码
-} else {
-    // 默认代码
+// 3. 箭头函数 (Arrow Function)
+const add = (a, b) => a + b;
+const square = x => x * x;  // 单参数可省略括号
+const sayHello = () => "Hello!";  // 无参数
+
+// 4. 立即执行函数 (IIFE)
+(function() {
+    console.log("立即执行！");
+})();
+
+// 5. 高阶函数示例
+function createMultiplier(factor) {
+    return function(number) {
+        return number * factor;
+    };
+}
+const double = createMultiplier(2);
+console.log(double(5)); // 10
+
+// 6. 默认参数
+function greetWithDefault(name = "朋友", greeting = "你好") {
+    return `${greeting}, ${name}!`;
 }
 
-// 循环
-for (let i = 0; i < 10; i++) {
-    console.log(i);
+// 7. 剩余参数
+function sum(...numbers) {
+    return numbers.reduce((total, num) => total + num, 0);
+}
+console.log(sum(1, 2, 3, 4, 5)); // 15</code></pre>
+                            </div>
+                            <div class="tips-box">
+                                <i class="material-icons">lightbulb</i>
+                                <div>
+                                    <strong>函数最佳实践：</strong>
+                                    <ul>
+                                        <li>函数应该只做一件事，保持简洁</li>
+                                        <li>使用描述性的函数名</li>
+                                        <li>箭头函数没有自己的 <code>this</code></li>
+                                        <li>利用默认参数提高函数的健壮性</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="external-links">
+                                <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Functions" target="_blank" class="link-btn">
+                                    <i class="material-icons">open_in_new</i>
+                                    MDN文档
+                                </a>
+                                <a href="https://javascript.info/function-basics" target="_blank" class="link-btn">
+                                    <i class="material-icons">school</i>
+                                    详细教程
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="category-card">
+                            <div class="card-header">
+                                <i class="material-icons">alt_route</i>
+                                <h3>控制流程</h3>
+                            </div>
+                            <div class="card-description">
+                                <p>掌握条件语句、循环语句和异常处理，控制程序的执行流程。</p>
+                            </div>
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <span class="code-title">条件语句与循环</span>
+                                    <button class="copy-btn" onclick="copyCode(this)">
+                                        <i class="material-icons">content_copy</i>
+                                    </button>
+                                </div>
+                                <pre><code>// 1. 条件语句
+const score = 85;
+
+// if...else if...else
+if (score >= 90) {
+    console.log("优秀");
+} else if (score >= 80) {
+    console.log("良好");
+} else if (score >= 60) {
+    console.log("及格");
+} else {
+    console.log("不及格");
+}
+
+// 三元运算符
+const result = score >= 60 ? "及格" : "不及格";
+
+// switch语句
+const day = "Monday";
+switch (day) {
+    case "Monday":
+        console.log("周一");
+        break;
+    case "Tuesday":
+        console.log("周二");
+        break;
+    default:
+        console.log("其他日期");
+}
+
+// 2. 循环语句
+// for循环
+for (let i = 0; i < 5; i++) {
+    console.log(`第${i + 1}次循环`);
 }
 
 // while循环
-while (condition) {
-    // 循环体
-}</code></pre>
-                        </div>
-                        <div class="external-links">
-                            <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Control_flow_and_error_handling" target="_blank" class="link-btn">
-                                <i class="material-icons">open_in_new</i>
-                                MDN文档
-                            </a>
-                        </div>
-                    </div>
+let count = 0;
+while (count < 3) {
+    console.log(`计数: ${count}`);
+    count++;
+}
 
-                    <div class="category-card">
-                        <h3>对象和数组</h3>
-                        <div class="code-example">
-                            <pre><code>// 对象
+// do...while循环
+let num = 0;
+do {
+    console.log(`数字: ${num}`);
+    num++;
+} while (num < 3);
+
+// for...in (遍历对象属性)
+const person = {name: "张三", age: 25, city: "北京"};
+for (let key in person) {
+    console.log(`${key}: ${person[key]}`);
+}
+
+// for...of (遍历可迭代对象)
+const fruits = ["苹果", "香蕉", "橙子"];
+for (let fruit of fruits) {
+    console.log(fruit);
+}
+
+// 3. 异常处理
+try {
+    let data = JSON.parse('{"name": "张三"}');
+    console.log(data.name);
+} catch (error) {
+    console.error("解析错误:", error.message);
+} finally {
+    console.log("无论如何都会执行");
+}</code></pre>
+                            </div>
+                            <div class="tips-box">
+                                <i class="material-icons">lightbulb</i>
+                                <div>
+                                    <strong>控制流程技巧：</strong>
+                                    <ul>
+                                        <li>使用 <code>for...of</code> 遍历数组，<code>for...in</code> 遍历对象</li>
+                                        <li>善用 <code>break</code> 和 <code>continue</code> 控制循环</li>
+                                        <li>总是在 <code>try...catch</code> 中处理可能的错误</li>
+                                        <li>避免过深的嵌套，考虑提前返回</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="external-links">
+                                <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Control_flow_and_error_handling" target="_blank" class="link-btn">
+                                    <i class="material-icons">open_in_new</i>
+                                    MDN文档
+                                </a>
+                                <a href="https://javascript.info/ifelse" target="_blank" class="link-btn">
+                                    <i class="material-icons">school</i>
+                                    详细教程
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="category-card">
+                            <div class="card-header">
+                                <i class="material-icons">data_object</i>
+                                <h3>对象和数组</h3>
+                            </div>
+                            <div class="card-description">
+                                <p>深入学习JavaScript中的对象和数组操作，掌握常用方法和高级技巧。</p>
+                            </div>
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <span class="code-title">对象与数组操作</span>
+                                    <button class="copy-btn" onclick="copyCode(this)">
+                                        <i class="material-icons">content_copy</i>
+                                    </button>
+                                </div>
+                                <pre><code>// 1. 对象操作
 const person = {
     name: "张三",
     age: 25,
+    city: "北京",
+    hobbies: ["读书", "游泳", "编程"],
     greet() {
-        return `我是${this.name}`;
+        return `我是${this.name}，来自${this.city}`;
     }
 };
 
-// 数组方法
+// 访问属性
+console.log(person.name);        // 点记法
+console.log(person["age"]);      // 括号记法
+
+// 动态属性名
+const prop = "city";
+console.log(person[prop]);       // "北京"
+
+// 添加/修改属性
+person.email = "zhangsan@example.com";
+person.age = 26;
+
+// 删除属性
+delete person.city;
+
+// 检查属性是否存在
+console.log("name" in person);           // true
+console.log(person.hasOwnProperty("age")); // true
+
+// 获取所有键/值
+console.log(Object.keys(person));        // 所有键
+console.log(Object.values(person));      // 所有值
+console.log(Object.entries(person));     // 键值对数组
+
+// 2. 数组操作
 const numbers = [1, 2, 3, 4, 5];
-const doubled = numbers.map(n => n * 2);
-const filtered = numbers.filter(n => n > 2);</code></pre>
+const fruits = ["苹果", "香蕉", "橙子"];
+
+// 基本操作
+numbers.push(6);           // 末尾添加
+numbers.unshift(0);        // 开头添加
+const last = numbers.pop(); // 末尾删除并返回
+const first = numbers.shift(); // 开头删除并返回
+
+// 高阶方法
+const doubled = numbers.map(n => n * 2);           // 映射
+const evens = numbers.filter(n => n % 2 === 0);    // 过滤
+const sum = numbers.reduce((acc, n) => acc + n, 0); // 归约
+const found = numbers.find(n => n > 3);            // 查找
+const hasEven = numbers.some(n => n % 2 === 0);    // 是否存在
+const allPositive = numbers.every(n => n > 0);     // 是否全部满足
+
+// 数组遍历
+numbers.forEach((num, index) => {
+    console.log(`索引${index}: ${num}`);
+});
+
+// 数组排序
+const sorted = [...numbers].sort((a, b) => a - b); // 升序
+const reversed = [...numbers].reverse();           // 反转
+
+// 数组合并与切片
+const combined = [...numbers, ...fruits];  // 展开运算符合并
+const slice = numbers.slice(1, 4);         // 切片
+const spliced = numbers.splice(2, 1, 10);  // 删除并插入
+
+// 3. 解构赋值
+const {name, age} = person;                // 对象解构
+const [first_fruit, second_fruit] = fruits; // 数组解构
+
+// 嵌套解构
+const user = {
+    id: 1,
+    profile: {
+        name: "李四",
+        contact: {
+            email: "lisi@example.com"
+        }
+    }
+};
+const {profile: {name: userName, contact: {email}}} = user;</code></pre>
+                            </div>
+                            <div class="tips-box">
+                                <i class="material-icons">lightbulb</i>
+                                <div>
+                                    <strong>对象数组技巧：</strong>
+                                    <ul>
+                                        <li>使用展开运算符 <code>...</code> 进行浅拷贝</li>
+                                        <li>链式调用数组方法提高代码可读性</li>
+                                        <li>善用解构赋值简化代码</li>
+                                        <li>注意 <code>map</code>、<code>filter</code> 等方法返回新数组</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="external-links">
+                                <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Working_with_Objects" target="_blank" class="link-btn">
+                                    <i class="material-icons">open_in_new</i>
+                                    MDN文档
+                                </a>
+                                <a href="https://javascript.info/object" target="_blank" class="link-btn">
+                                    <i class="material-icons">school</i>
+                                    详细教程
+                                </a>
+                            </div>
                         </div>
-                        <div class="external-links">
-                            <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Working_with_Objects" target="_blank" class="link-btn">
-                                <i class="material-icons">open_in_new</i>
-                                MDN文档
-                            </a>
+                    </div>
+                </div>
+
+                <!-- 进阶概念标签页 -->
+                <div id="advanced" class="tab-content">
+                    <div class="syntax-categories">
+                        <div class="category-card">
+                            <div class="card-header">
+                                <i class="material-icons">psychology</i>
+                                <h3>作用域与闭包</h3>
+                            </div>
+                            <div class="card-description">
+                                <p>理解JavaScript的作用域机制和闭包概念，这是掌握JavaScript的关键。</p>
+                            </div>
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <span class="code-title">作用域与闭包示例</span>
+                                    <button class="copy-btn" onclick="copyCode(this)">
+                                        <i class="material-icons">content_copy</i>
+                                    </button>
+                                </div>
+                                <pre><code>// 1. 作用域示例
+var globalVar = "全局变量";
+
+function outerFunction() {
+    var outerVar = "外部函数变量";
+    
+    function innerFunction() {
+        var innerVar = "内部函数变量";
+        console.log(globalVar);  // 可以访问
+        console.log(outerVar);   // 可以访问
+        console.log(innerVar);   // 可以访问
+    }
+    
+    innerFunction();
+    // console.log(innerVar); // 错误！无法访问
+}
+
+// 2. 闭包示例
+function createCounter() {
+    let count = 0;
+    
+    return function() {
+        count++;
+        return count;
+    };
+}
+
+const counter1 = createCounter();
+const counter2 = createCounter();
+
+console.log(counter1()); // 1
+console.log(counter1()); // 2
+console.log(counter2()); // 1 (独立的计数器)
+
+// 3. 模块模式
+const Calculator = (function() {
+    let result = 0;
+    
+    return {
+        add: function(x) {
+            result += x;
+            return this;
+        },
+        subtract: function(x) {
+            result -= x;
+            return this;
+        },
+        multiply: function(x) {
+            result *= x;
+            return this;
+        },
+        getResult: function() {
+            return result;
+        },
+        reset: function() {
+            result = 0;
+            return this;
+        }
+    };
+})();
+
+// 链式调用
+const finalResult = Calculator
+    .add(10)
+    .multiply(2)
+    .subtract(5)
+    .getResult(); // 15</code></pre>
+                            </div>
+                            <div class="external-links">
+                                <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures" target="_blank" class="link-btn">
+                                    <i class="material-icons">open_in_new</i>
+                                    MDN文档
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="category-card">
+                            <div class="card-header">
+                                <i class="material-icons">schedule</i>
+                                <h3>异步编程</h3>
+                            </div>
+                            <div class="card-description">
+                                <p>掌握JavaScript异步编程的核心概念：回调、Promise和async/await。</p>
+                            </div>
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <span class="code-title">异步编程模式</span>
+                                    <button class="copy-btn" onclick="copyCode(this)">
+                                        <i class="material-icons">content_copy</i>
+                                    </button>
+                                </div>
+                                <pre><code>// 1. 回调函数
+function fetchData(callback) {
+    setTimeout(() => {
+        const data = {id: 1, name: "用户数据"};
+        callback(null, data);
+    }, 1000);
+}
+
+fetchData((error, data) => {
+    if (error) {
+        console.error("错误:", error);
+    } else {
+        console.log("数据:", data);
+    }
+});
+
+// 2. Promise
+function fetchDataPromise() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const success = Math.random() > 0.3;
+            if (success) {
+                resolve({id: 1, name: "用户数据"});
+            } else {
+                reject(new Error("获取数据失败"));
+            }
+        }, 1000);
+    });
+}
+
+// Promise链式调用
+fetchDataPromise()
+    .then(data => {
+        console.log("获取到数据:", data);
+        return data.id;
+    })
+    .then(id => {
+        console.log("用户ID:", id);
+    })
+    .catch(error => {
+        console.error("错误:", error.message);
+    })
+    .finally(() => {
+        console.log("请求完成");
+    });
+
+// 3. async/await
+async function fetchUserData() {
+    try {
+        console.log("开始获取数据...");
+        const data = await fetchDataPromise();
+        console.log("用户数据:", data);
+        
+        // 并行请求
+        const [user, posts, comments] = await Promise.all([
+            fetchDataPromise(),
+            fetchDataPromise(),
+            fetchDataPromise()
+        ]);
+        
+        return {user, posts, comments};
+    } catch (error) {
+        console.error("获取数据失败:", error.message);
+        throw error;
+    }
+}
+
+// 调用异步函数
+fetchUserData()
+    .then(result => console.log("所有数据:", result))
+    .catch(error => console.error("最终错误:", error));</code></pre>
+                            </div>
+                            <div class="external-links">
+                                <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises" target="_blank" class="link-btn">
+                                    <i class="material-icons">open_in_new</i>
+                                    MDN文档
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ES6+特性标签页 -->
+                <div id="es6" class="tab-content">
+                    <div class="syntax-categories">
+                        <div class="category-card">
+                            <div class="card-header">
+                                <i class="material-icons">new_releases</i>
+                                <h3>ES6+新特性</h3>
+                            </div>
+                            <div class="card-description">
+                                <p>学习现代JavaScript的新特性，提高代码的简洁性和可读性。</p>
+                            </div>
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <span class="code-title">现代JavaScript特性</span>
+                                    <button class="copy-btn" onclick="copyCode(this)">
+                                        <i class="material-icons">content_copy</i>
+                                    </button>
+                                </div>
+                                <pre><code>// 1. 模板字符串
+const name = "张三";
+const age = 25;
+const message = `你好，我是${name}，今年${age}岁。
+这是多行字符串的示例。`;
+
+// 2. 解构赋值
+const person = {name: "李四", age: 30, city: "上海"};
+const {name: personName, age: personAge, city = "未知"} = person;
+
+const numbers = [1, 2, 3, 4, 5];
+const [first, second, ...rest] = numbers;
+
+// 3. 展开运算符
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const combined = [...arr1, ...arr2];
+
+const obj1 = {a: 1, b: 2};
+const obj2 = {c: 3, d: 4};
+const merged = {...obj1, ...obj2};
+
+// 4. 类 (Class)
+class Animal {
+    constructor(name, species) {
+        this.name = name;
+        this.species = species;
+    }
+    
+    speak() {
+        return `${this.name} 发出了声音`;
+    }
+    
+    static getSpeciesCount() {
+        return "动物种类很多";
+    }
+}
+
+class Dog extends Animal {
+    constructor(name, breed) {
+        super(name, "犬类");
+        this.breed = breed;
+    }
+    
+    speak() {
+        return `${this.name} 汪汪叫`;
+    }
+    
+    fetch() {
+        return `${this.name} 去捡球了`;
+    }
+}
+
+const myDog = new Dog("旺财", "金毛");
+console.log(myDog.speak());
+
+// 5. 模块 (Modules)
+// export.js
+// export const PI = 3.14159;
+// export function calculateArea(radius) {
+//     return PI * radius * radius;
+// }
+// export default class Circle {
+//     constructor(radius) {
+//         this.radius = radius;
+//     }
+// }
+
+// import.js
+// import Circle, { PI, calculateArea } from './export.js';
+// import * as MathUtils from './export.js';
+
+// 6. Map 和 Set
+const map = new Map();
+map.set('name', '张三');
+map.set('age', 25);
+map.set(1, '数字键');
+
+const set = new Set([1, 2, 3, 3, 4, 4, 5]);
+console.log(set); // Set {1, 2, 3, 4, 5}
+
+// 7. Symbol
+const id = Symbol('id');
+const user = {
+    name: '用户',
+    [id]: 12345
+};
+
+// 8. 可选链操作符 (ES2020)
+const user_data = {
+    profile: {
+        social: {
+            twitter: '@username'
+        }
+    }
+};
+
+const twitter = user_data?.profile?.social?.twitter;
+const facebook = user_data?.profile?.social?.facebook ?? '未设置';</code></pre>
+                            </div>
+                            <div class="external-links">
+                                <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide" target="_blank" class="link-btn">
+                                    <i class="material-icons">open_in_new</i>
+                                    MDN文档
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOM操作标签页 -->
+                <div id="dom" class="tab-content">
+                    <div class="syntax-categories">
+                        <div class="category-card">
+                            <div class="card-header">
+                                <i class="material-icons">web</i>
+                                <h3>DOM操作基础</h3>
+                            </div>
+                            <div class="card-description">
+                                <p>学习如何使用JavaScript操作网页元素，实现动态交互效果。</p>
+                            </div>
+                            <div class="code-example">
+                                <div class="code-header">
+                                    <span class="code-title">DOM操作示例</span>
+                                    <button class="copy-btn" onclick="copyCode(this)">
+                                        <i class="material-icons">content_copy</i>
+                                    </button>
+                                </div>
+                                <pre><code>// 1. 选择元素
+const elementById = document.getElementById('myId');
+const elementsByClass = document.getElementsByClassName('myClass');
+const elementsByTag = document.getElementsByTagName('div');
+const querySelector = document.querySelector('.my-class');
+const querySelectorAll = document.querySelectorAll('div.item');
+
+// 2. 创建和插入元素
+const newDiv = document.createElement('div');
+newDiv.textContent = '新创建的元素';
+newDiv.className = 'new-element';
+newDiv.id = 'unique-id';
+
+// 插入元素
+const container = document.getElementById('container');
+container.appendChild(newDiv);           // 末尾插入
+container.insertBefore(newDiv, firstChild); // 指定位置插入
+
+// 3. 修改元素内容和属性
+const element = document.querySelector('#myElement');
+element.textContent = '新的文本内容';
+element.innerHTML = '<strong>HTML内容</strong>';
+element.setAttribute('data-value', '123');
+element.style.color = 'red';
+element.style.backgroundColor = 'yellow';
+
+// 4. 事件处理
+const button = document.querySelector('#myButton');
+
+// 添加事件监听器
+button.addEventListener('click', function(event) {
+    console.log('按钮被点击了！');
+    event.preventDefault(); // 阻止默认行为
+});
+
+// 事件委托
+const list = document.querySelector('#myList');
+list.addEventListener('click', function(event) {
+    if (event.target.tagName === 'LI') {
+        console.log('点击了列表项:', event.target.textContent);
+    }
+});
+
+// 5. 表单操作
+const form = document.querySelector('#myForm');
+const input = document.querySelector('#myInput');
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const value = input.value;
+    if (value.trim() === '') {
+        alert('请输入内容');
+        return;
+    }
+    console.log('提交的值:', value);
+});
+
+// 6. 动态样式操作
+const box = document.querySelector('.box');
+
+// 添加/移除类
+box.classList.add('active');
+box.classList.remove('inactive');
+box.classList.toggle('highlight');
+box.classList.contains('active'); // 检查是否包含类
+
+// 7. 动画效果
+function fadeIn(element, duration = 300) {
+    element.style.opacity = '0';
+    element.style.display = 'block';
+    
+    const start = performance.now();
+    
+    function animate(currentTime) {
+        const elapsed = currentTime - start;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        element.style.opacity = progress;
+        
+        if (progress < 1) {
+            requestAnimationFrame(animate);
+        }
+    }
+    
+    requestAnimationFrame(animate);
+}
+
+// 使用动画
+const fadeElement = document.querySelector('.fade-element');
+fadeIn(fadeElement, 500);</code></pre>
+                            </div>
+                            <div class="external-links">
+                                <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model" target="_blank" class="link-btn">
+                                    <i class="material-icons">open_in_new</i>
+                                    MDN文档
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
